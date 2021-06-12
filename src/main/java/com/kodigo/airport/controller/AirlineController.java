@@ -1,8 +1,8 @@
 package com.kodigo.airport.controllers;
 
 import com.kodigo.airport.dto.AirlineDTO;
-import com.kodigo.airport.models.Airline;
-import com.kodigo.airport.services.AirlineService;
+import com.kodigo.airport.model.Airline;
+import com.kodigo.airport.service.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +29,7 @@ public class AirlineController {
 
     @PutMapping
     public Airline update(@RequestBody Airline airline) {
-        //Airline airline = new Airline();
-        //airline.setIdAirline(airlineDTO.getIdAirline());
-        //airline.setAirlineName(airlineDTO.getAirlineName());
+        
         return airlineService.update(airline);
     }
 
