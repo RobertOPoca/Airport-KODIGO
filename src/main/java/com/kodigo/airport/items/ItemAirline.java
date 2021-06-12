@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 public class ItemAirline implements Item{
     Integer idAirline;
-    String name;
+    String airlineName;
 }

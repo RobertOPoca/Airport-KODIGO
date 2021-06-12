@@ -45,6 +45,17 @@ public class Flight {
     private Date arrivalTime;
 
 
+    @ManyToOne
+    @JoinColumn(name="id_airline", insertable = false, updatable = false, nullable = false)
+    private Airline airline;
+
+    @ManyToOne
+    @JoinColumn(name="id_departure_city", insertable = false, updatable = false, nullable = false)
+    private City departureCity;
+
+    @ManyToOne
+    @JoinColumn(name="id_destination_city", insertable = false, updatable = false, nullable = false)
+    private City destinationCity;
     /*@ManyToOne
     @JoinColumn(name="id_destination_city", referencedColumnName="id_city", insertable=false, updatable=false)
     private City destinationCity;

@@ -21,9 +21,9 @@ public class AirlineService implements IAirlineService{
 
     @Override
     public Airline update(Airline airline) {
-        //Airline airlineTMP = airlineRepo.getById(airline.getIdAirline());
-
-        return airlineRepo.save(airline);
+        Airline airlineTMP = findById(airline.getIdAirline());
+        airlineTMP.setAirlineName(airline.getAirlineName());
+        return airlineRepo.save(airlineTMP);
     }
 
     @Override
