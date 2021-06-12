@@ -3,6 +3,7 @@ package com.kodigo.airport.models;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,4 +17,8 @@ public class Airline {
     private Integer idAirline;
     @Column(name = "airline")
     private String airlineName;
+
+   /* @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="id_airline")
+    private List<Flight> airlineList;*/
 }

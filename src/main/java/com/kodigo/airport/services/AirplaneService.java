@@ -1,7 +1,7 @@
 package com.kodigo.airport.services;
 
 import com.kodigo.airport.models.Airplane;
-import com.kodigo.airport.repositories.AirplaneRepository;
+import com.kodigo.airport.repositories.IAirplaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,14 +9,34 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AirplaneService {
-    @Autowired
-    private AirplaneRepository airplaneRepository;
+public class AirplaneService implements IAirplaneService{
 
-    public List<Airplane> getAllAirlines(){
-        return (List<Airplane>) airplaneRepository.findAll();
+    @Autowired
+    private IAirplaneRepository airplaneRepo;
+
+    @Override
+    public Airplane create(Airplane airplane) {
+        return airplaneRepo.save(airplane);
     }
-    public Optional<Airplane> getAirlineByModel(String model){
-        return airplaneRepository.findById(model);
+
+    @Override
+    public Airplane update(Airplane airplane) {
+        return airplaneRepo.save(airplane);
+    }
+
+    @Override
+    public Airplane findById(String model) {
+        Optional<Airplane> airplaneOptional = airplaneRepo.findById(model);
+        return airplaneOptional.orElse(null);
+    }
+
+    @Override
+    public List<Airplane> findAll() {
+        return airplaneRepo.findAll();
+    }
+
+    @Override
+    public void delete(String model) {
+        airplaneRepo.deleteById(model);
     }
 }
