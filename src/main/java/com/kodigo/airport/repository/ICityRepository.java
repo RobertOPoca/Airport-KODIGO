@@ -1,6 +1,6 @@
-package com.kodigo.airport.repositories;
+package com.kodigo.airport.repository;
 
-import com.kodigo.airport.models.City;
+import com.kodigo.airport.model.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

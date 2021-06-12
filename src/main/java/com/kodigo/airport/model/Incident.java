@@ -1,4 +1,4 @@
-package com.kodigo.airport.models;
+package com.kodigo.airport.model;
 
 
 import lombok.Getter;
