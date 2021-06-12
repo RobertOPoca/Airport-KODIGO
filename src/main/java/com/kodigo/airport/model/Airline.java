@@ -14,11 +14,11 @@ public class Airline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_airline", nullable = false)
+    @Column(name = "id_airline")
     private Integer idAirline;
 
 
-    @Column(name = "airline", nullable = false, unique = true, length = 50)
+    @Column(name = "airline")
     private String airlineName;
 
     @OneToMany(cascade= CascadeType.ALL)

@@ -1,7 +1,7 @@
 package com.kodigo.airport.controller;
 
 import com.kodigo.airport.dto.AirlineDTO;
-import com.kodigo.airport.items.ItemAirline;
+import com.kodigo.airport.item.IItemAirline;
 
 import com.kodigo.airport.model.Airline;
 import com.kodigo.airport.responses.ResponseApi;
@@ -22,10 +22,10 @@ public class AirlineController {
 
 
     @GetMapping()
-    public ResponseApi<List<ItemAirline>> getAllAirlines() {
+    public ResponseApi<List<IItemAirline>> getAllAirlines() {
         boolean success;
         String message;
-        List<ItemAirline> itemAirlineList = new ArrayList<>();
+        List<IItemAirline> itemAirlineList = new ArrayList<>();
         List<Airline> airlineList= airlineService.findAll();
         if(airlineList.isEmpty()){
             success = false;
@@ -34,7 +34,7 @@ public class AirlineController {
             success = true;
             message = "Airlines found";
             for(Airline airline : airlineList){
-                var itemAirline = new ItemAirline();
+                var itemAirline = new IItemAirline();
                 itemAirline.setIdAirline(airline.getIdAirline());
                 itemAirline.setAirlineName(airline.getAirlineName());
                 itemAirlineList.add(itemAirline);
@@ -45,11 +45,11 @@ public class AirlineController {
     }
 
     @PostMapping
-    public ResponseApi<ItemAirline> create(@RequestBody AirlineDTO airlineDTO){
+    public ResponseApi<IItemAirline> create(@RequestBody AirlineDTO airlineDTO){
         boolean success = false;
         String message = "";
         Airline airline = new Airline();
-        ItemAirline itemAirline = new ItemAirline();
+        IItemAirline itemAirline = new IItemAirline();
         try{
             airline.setAirlineName(airlineDTO.getAirlineName());
             airline = this.airlineService.create(airline);
@@ -71,11 +71,11 @@ public class AirlineController {
 
     @PutMapping
 
-    public ResponseApi<ItemAirline>  update(@RequestBody AirlineDTO airlineDTO) {
+    public ResponseApi<IItemAirline>  update(@RequestBody AirlineDTO airlineDTO) {
         boolean success = false;
         String message = "";
         Airline airline = new Airline();
-        ItemAirline itemAirline = new ItemAirline();
+        IItemAirline itemAirline = new IItemAirline();
         try{
             airline.setIdAirline(airlineDTO.getIdAirline());
             airline.setAirlineName(airlineDTO.getAirlineName());
@@ -98,10 +98,10 @@ public class AirlineController {
     }
 
     @GetMapping("/{id}")
-    public ResponseApi<ItemAirline> findById(@PathVariable("id") Integer idAirline){
+    public ResponseApi<IItemAirline> findById(@PathVariable("id") Integer idAirline){
         boolean success;
         String message;
-        ItemAirline itemAirline = new ItemAirline();
+        IItemAirline itemAirline = new IItemAirline();
         Airline airline = airlineService.findById(idAirline);
         if(airline==null){
             success = false;
