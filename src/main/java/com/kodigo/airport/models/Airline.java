@@ -18,6 +18,10 @@ public class Airline {
     @Column(name = "airline")
     private String airlineName;
 
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="id_airline")
+    private List<Airline> airlineList;
+
    /* @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="id_airline")
     private List<Flight> airlineList;*/

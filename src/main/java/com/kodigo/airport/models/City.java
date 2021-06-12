@@ -25,8 +25,9 @@ public class City {
     @JoinColumn(name="id_country")
     private Country country;
 
+
     @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="id_departure_city")
+    @JoinColumn(name="departureCity")
     private List<Flight> flightDepartureList;
 
     @OneToMany(cascade= CascadeType.ALL)
