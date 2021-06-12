@@ -1,11 +1,12 @@
 package com.kodigo.airport.model;
 
+import com.kodigo.airport.model.Airline;
+import com.kodigo.airport.model.City;
 import lombok.Getter;
 import lombok.Setter;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Flight {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "id_flight")
+    @Column(name = "id_flight")
     private Integer idFlight;
 
     @Column(name = "model")
@@ -46,9 +47,40 @@ public class Flight {
     private Date arrivalTime;
 
 
+    @ManyToOne
+    @JoinColumn(name="id_airline", insertable = false, updatable = false, nullable = false)
+    private Airline airline;
+
+    @ManyToOne
+    @JoinColumn(name="id_departure_city", insertable = false, updatable = false, nullable = false)
+    private City departureCity;
+
+    @ManyToOne
+    @JoinColumn(name="id_destination_city", insertable = false, updatable = false, nullable = false)
+    private City destinationCity;
+    /*@ManyToOne
+    @JoinColumn(name="id_destination_city", referencedColumnName="id_city", insertable=false, updatable=false)
+    private City destinationCity;
+
+    @ManyToOne
+    @JoinColumn(name="id_departure_city", referencedColumnName="id_city", insertable=false, updatable=false)
+    private City departureCity;
+
+    @ManyToOne
+    @JoinColumn(name="model", referencedColumnName="model", insertable=false, updatable=false)
+    private Airplane airplane;
 
 
+    @ManyToOne
+    @JoinColumn(name="id_airline", referencedColumnName="id_airline", insertable=false, updatable=false)
+    private Airline airline;
 
+    @ManyToOne
+    @JoinColumn(name="id_flight", referencedColumnName="id_incident", insertable=false, updatable=false)
+    private Incident incident;*/
 
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="id_source_city")
+    private List<Flight> flightList;
 
 }
