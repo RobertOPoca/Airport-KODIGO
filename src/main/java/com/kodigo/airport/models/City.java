@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Setter
@@ -23,12 +22,10 @@ public class City {
     private String cityName;
 
     @ManyToOne
-    @JoinColumn(name="Id_Country")
+    @JoinColumn(name="id_country")
     private Country country;
 
-
     @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="id_source_city")
+    @JoinColumn(name="id_departure_city")
     private List<Flight> flightList;
-
 }

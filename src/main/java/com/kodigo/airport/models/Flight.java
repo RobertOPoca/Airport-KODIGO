@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 
 @Setter
 @Getter
@@ -18,12 +20,51 @@ public class Flight {
     @Column(name = "id_flight")
     private Integer idFlight;
 
-    @ManyToOne
-    @JoinColumn(name="id_airline_plane")
-    private AirlineAirplane airlineAirplane;
+    @Column(name = "model")
+    private String model;
+
+    @Column(name = "id_airline")
+    private Integer idAirline;
+
+    @Column(name = "id_departure_city")
+    private Integer idDepartureCity;
+
+    @Column(name = "id_destination_city")
+    private Integer idDestinationCity;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private String status;
+
+    @Column(name = "departure_time")
+    @Temporal(TemporalType.DATE)
+    private Date departureTime;
+
+    @Column(name = "arrival_time")
+    @Temporal(TemporalType.DATE)
+    private Date arrivalTime;
 
 
     @ManyToOne
-    @JoinColumn(name="id_source_city")
-    private City city;
+    @JoinColumn(name="id_destination_city")
+    private List<City> destinationCityList;
+
+    @ManyToOne
+    @JoinColumn(name="id_departure_city")
+    private List<City> departureCityList;
+
+    @ManyToOne
+    @JoinColumn(name="model")
+    private List<Airplane> modelList;
+
+    @ManyToOne
+    @JoinColumn(name="id_airline")
+    private List<Airline> airlineList;
+
+
+
+
+
+
+
 }
