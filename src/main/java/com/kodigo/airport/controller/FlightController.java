@@ -59,12 +59,12 @@ public class FlightController {
         IItemFlight itemFlight = new IItemFlight();
         try{
             flight.setModel(flightDTO.getModel());
-            flight.setIdAirline(Integer.valueOf(flightDTO.getAirline()));
-            flight.setIdDepartureCity(Integer.valueOf(flightDTO.getDepartureCity()));
-            flight.setIdArrivalCity(Integer.valueOf(flightDTO.getDestinationCity()));
+            flight.setIdAirline(flightDTO.getIdAirline());
+            flight.setIdDepartureCity(flightDTO.getIdDepartureCity());
+            flight.setIdArrivalCity(flightDTO.getIdArrivalCity());
             flight.setStatus(flightDTO.getStatus());
-            flight.setDepartureTime(Date.valueOf(flightDTO.getDepartureTime()));
-            flight.setArrivalTime(Date.valueOf(flightDTO.getArrivalTime()));
+            flight.setDepartureTime(flightDTO.getDepartureTime());
+            flight.setArrivalTime(flightDTO.getArrivalTime());
 
 
             flight = this.flightService.create(flight);
@@ -101,12 +101,12 @@ public class FlightController {
         try{
             flight.setIdAirline(flightDTO.getIdFlight());
             flight.setModel(flightDTO.getModel());
-            flight.setIdAirline(Integer.valueOf(flightDTO.getAirline()));
-            flight.setIdDepartureCity(Integer.valueOf(flightDTO.getDepartureCity()));
-            flight.setIdArrivalCity(Integer.valueOf(flightDTO.getDestinationCity()));
+            flight.setIdAirline(flightDTO.getIdAirline());
+            flight.setIdDepartureCity(flightDTO.getIdDepartureCity());
+            flight.setIdArrivalCity(flightDTO.getIdArrivalCity());
             flight.setStatus(flightDTO.getStatus());
-            flight.setDepartureTime(Date.valueOf(flightDTO.getDepartureTime()));
-            flight.setArrivalTime(Date.valueOf(flightDTO.getArrivalTime()));
+            flight.setDepartureTime(flightDTO.getDepartureTime());
+            flight.setArrivalTime(flightDTO.getArrivalTime());
 
             flight = this.flightService.update(flight);
             if(flight!=null){
