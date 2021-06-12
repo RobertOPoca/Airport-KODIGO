@@ -1,6 +1,6 @@
-package com.kodigo.airport.services;
+package com.kodigo.airport.service;
 
-import com.kodigo.airport.models.Airline;
+import com.kodigo.airport.model.Airline;
 
 import java.util.List;
 

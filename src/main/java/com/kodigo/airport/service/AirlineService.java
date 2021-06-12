@@ -1,7 +1,7 @@
-package com.kodigo.airport.services;
+package com.kodigo.airport.service;
 
-import com.kodigo.airport.models.Airline;
-import com.kodigo.airport.repositories.IAirlineRepository;
+import com.kodigo.airport.model.Airline;
+import com.kodigo.airport.repository.IAirlineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

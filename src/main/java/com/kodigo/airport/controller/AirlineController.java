@@ -1,7 +1,9 @@
-package com.kodigo.airport.controllers;
+package com.kodigo.airport.controller;
 
 import com.kodigo.airport.dto.AirlineDTO;
+import com.kodigo.airport.items.ItemAirline;
 import com.kodigo.airport.model.Airline;
+import com.kodigo.airport.responses.ResponseApi;
 import com.kodigo.airport.service.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,10 @@ public class AirlineController {
     private AirlineService airlineService;
 
     @GetMapping
-    public List<Airline> findAll(){
+    public ResponseApi<List<ItemAirline>> findAll(){
+
         return airlineService.findAll();
+
     }
 
     @PostMapping
@@ -29,7 +33,7 @@ public class AirlineController {
 
     @PutMapping
     public Airline update(@RequestBody Airline airline) {
-        
+
         return airlineService.update(airline);
     }
 
