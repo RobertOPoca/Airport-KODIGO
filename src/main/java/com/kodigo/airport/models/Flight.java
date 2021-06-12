@@ -18,9 +18,9 @@ public class Flight {
     @Column(name = "id_flight")
     private Integer idFlight;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name="id_airline_plane")
-    private AirlineAirplane airlineAirplane;
+    private AirlineAirplane airlineAirplane;*/
 
 
     @ManyToOne

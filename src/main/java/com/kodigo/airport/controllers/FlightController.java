@@ -32,8 +32,8 @@ public class FlightController {
             for(Flight flight : flightList){
                 var itemFlight = new ItemFlight();
                 itemFlight.setId(flight.getIdFlight());
-                itemFlight.setAirline(flight.getAirlineAirplane().getAirline().getAirlineName());
-                itemFlight.setAirplane(flight.getAirlineAirplane().getAirplane().getModel());
+                //itemFlight.setAirline(flight.getAirlineAirplane().getAirline().getAirlineName());
+                //itemFlight.setAirplane(flight.getAirlineAirplane().getAirplane().getModel());
                 itemFlight.setSourceCity(flight.getCity().getCityName());
                 itemFlight.setSourceCountry(flight.getCity().getCountry().getCountryName());
                 itemFlightList.add(itemFlight);
