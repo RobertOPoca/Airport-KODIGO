@@ -1,6 +1,12 @@
 package com.kodigo.airport.utils;
 
-import com.kodigo.airport.dto.FlightDTO;
+import com.kodigo.airport.model.Flight;
+import com.kodigo.airport.model.City;
+import com.kodigo.airport.model.Airline;
+import com.kodigo.airport.model.Airplane;
+import com.kodigo.airport.service.AirlineService;
+import com.kodigo.airport.service.AirplaneService;
+import com.kodigo.airport.service.CityService;
 import com.kodigo.airport.service.FlightService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,11 +21,25 @@ import java.sql.Date;
 
 public class ExcelBatch implements IFileRead{
     @Autowired
-    private FlightService flightXlsxService;
-    public void read() {
+    private FlightService flightService;
 
-        FlightDTO flight;
+    @Autowired
+    private AirplaneService airplaneService;
+
+    @Autowired
+    private CityService cityService;
+
+    @Autowired
+    private AirlineService airlineService;
+
+    public String read() {
+        Flight flight;
+        City cityDeparture;
+        City cityArrival;
+        Airline airline;
+        Airplane airplane;
         String path = "./batch.xlsx";
+        String message = "";
 
         try {
             File file = new File(path);
@@ -48,22 +68,38 @@ public class ExcelBatch implements IFileRead{
 
             for(int i = 0; i <= numRows; i++){
                 if(sheet.getRow(i) != null){
+
                     Row row = sheet.getRow(i);
-                    flight = new FlightDTO();
+                    flight = new Flight();
                     flight.setIdFlight(Integer.parseInt(row.getCell(0).toString()));
-                    flight.setIdAirline(Integer.parseInt(row.getCell(1).toString()));
-                    flight.setModel(row.getCell(2).toString());
-                    flight.setIdDepartureCity(Integer.parseInt(row.getCell(3).toString()));
-                    flight.setIdArrivalCity(Integer.parseInt(row.getCell(4).toString()));
+
+                    airline= this.airlineService.findById(Integer.parseInt(row.getCell(1).toString()));
+                    flight.setAirline(airline);
+
+                    airplane = this.airplaneService.findById(row.getCell(2).toString());
+                    flight.setAirplane(airplane);
+
+                    cityDeparture = this.cityService.findById(Integer.parseInt(row.getCell(3).toString()));
+                    flight.setDepartureCity(cityDeparture);
+
+                    cityArrival = this.cityService.findById(Integer.parseInt(row.getCell(4).toString()));
+                    flight.setArrivalCity(cityArrival);
+
                     flight.setDepartureTime(Date.valueOf(row.getCell(5).toString()));
                     flight.setArrivalTime(Date.valueOf(row.getCell(6).toString()));
-                    //this.flightXlsxService.create(flight);
+                    flight.setStatus("ONTIME");
+                    //flight.setDepartureTime(new java.util.Date());
+                    //flight.setArrivalTime(new java.util.Date());
+
+                    this.flightService.create(flight);
+                    message = "flights was created successfully";;
                 }
             }
 
         }catch (IOException e) {
-            System.out.println("An error occurred: "+e.getMessage());
+            message = "An error occurred: "+e.getMessage();
         }
+        return message;
     }
 }
 
