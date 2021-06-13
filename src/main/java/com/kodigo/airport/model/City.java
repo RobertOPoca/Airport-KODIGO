@@ -1,11 +1,12 @@
-package com.kodigo.airport.models;
+package com.kodigo.airport.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
+
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
+
 
 @Setter
 @Getter
@@ -23,12 +24,16 @@ public class City {
     private String cityName;
 
     @ManyToOne
-    @JoinColumn(name="Id_Country")
+    @JoinColumn(name="id_country")
     private Country country;
 
 
     @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="id_source_city")
-    private List<Flight> flightList;
+    @JoinColumn(name="departureCity")
+    private List<Flight> flightDepartureList;
+
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="id_destination_city")
+    private List<Flight> flightDestinationList;
 
 }
