@@ -70,7 +70,6 @@ public class AirlineController {
     }
 
     @PutMapping
-
     public ResponseApi<IItemAirline>  update(@RequestBody AirlineDTO airlineDTO) {
         boolean success = false;
         String message = "";
@@ -94,7 +93,6 @@ public class AirlineController {
             message = ex.getMessage();
         }
         return new ResponseApi<>(success, message, itemAirline);
-
     }
 
     @GetMapping("/{id}")
@@ -105,10 +103,10 @@ public class AirlineController {
         Airline airline = airlineService.findById(idAirline);
         if(airline==null){
             success = false;
-            message = "No airlines found";
+            message = "No airline found";
         }else{
             success = true;
-            message = "Airlines found";
+            message = "Airline found";
 
             itemAirline.setIdAirline(airline.getIdAirline());
             itemAirline.setAirlineName(airline.getAirlineName());
