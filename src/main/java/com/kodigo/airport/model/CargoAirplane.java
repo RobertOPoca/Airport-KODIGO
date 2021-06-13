@@ -26,7 +26,7 @@ public class CargoAirplane {
     private float volume;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name="model", referencedColumnName="model", insertable=false, updatable=false)
+    @JoinColumn(name="model", insertable = false, updatable = false, nullable = false)
     private Airplane airplane;
 
 }

@@ -23,5 +23,5 @@ public class Airline {
 
     @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="id_airline")
-    private List<Airline> airlineList;
+    private List<Flight> flightList;
 }

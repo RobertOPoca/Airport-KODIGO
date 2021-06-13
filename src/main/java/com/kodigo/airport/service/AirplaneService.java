@@ -16,12 +16,15 @@ public class AirplaneService implements IAirplaneService{
 
     @Override
     public Airplane create(Airplane airplane) {
+
         return airplaneRepo.save(airplane);
     }
 
     @Override
     public Airplane update(Airplane airplane) {
-        return airplaneRepo.save(airplane);
+        Airplane airplaneTMP = findById(airplane.getModel());
+        airplaneTMP.setReach(airplane.getReach());
+        return airplaneRepo.save(airplaneTMP);
     }
 
     @Override

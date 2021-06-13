@@ -23,10 +23,10 @@ public class FlightService implements  IFlightService{
     @Override
     public Flight update(Flight flight) {
         Flight flightTMP = findById(flight.getIdFlight());
-        flightTMP.setModel(flight.getModel());
-        flightTMP.setIdAirline(flight.getIdAirline());
-        flightTMP.setIdDepartureCity(flight.getIdDepartureCity());
-        flightTMP.setIdArrivalCity(flight.getIdArrivalCity());
+        flightTMP.setAirplane(flight.getAirplane());
+        flightTMP.setAirline(flight.getAirline());
+        flightTMP.setDepartureCity(flight.getDepartureCity());
+        flightTMP.setArrivalCity(flight.getArrivalCity());
         flightTMP.setStatus(flight.getStatus());
         flightTMP.setDepartureTime(flight.getDepartureTime());
         flightTMP.setArrivalTime(flight.getArrivalTime());
