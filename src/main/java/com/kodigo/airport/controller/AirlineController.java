@@ -34,7 +34,7 @@ public class AirlineController {
             success = true;
             message = "Airlines found";
             for(Airline airline : airlineList){
-                var itemAirline = new IItemAirline();
+                IItemAirline itemAirline = new IItemAirline();
                 itemAirline.setIdAirline(airline.getIdAirline());
                 itemAirline.setAirlineName(airline.getAirlineName());
                 itemAirlineList.add(itemAirline);
