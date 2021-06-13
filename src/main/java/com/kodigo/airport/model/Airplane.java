@@ -22,4 +22,12 @@ public class Airplane {
     @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="model")
     private List<CommercialAirplane> commercialAirplaneList;
+
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="model")
+    private List<CargoAirplane> cargoAirplaneList;
+
+    @OneToMany(cascade= CascadeType.ALL)
+    @JoinColumn(name="model")
+    private List<Flight> flightList;
 }
