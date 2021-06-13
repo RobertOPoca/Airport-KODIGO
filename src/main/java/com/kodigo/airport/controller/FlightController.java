@@ -31,7 +31,7 @@ public class FlightController {
             success = true;
             message = "Flights found";
             for(Flight flight: flightList){
-                var itemFlight = new IItemFlight();
+                IItemFlight itemFlight = new IItemFlight();
 
                 itemFlight.setIdFlight(flight.getIdFlight());
                 itemFlight.setModel(flight.getModel());
