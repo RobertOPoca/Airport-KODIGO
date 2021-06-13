@@ -14,13 +14,13 @@
 	<name>airport</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.7.0</version>
 			<configuration>
-				<source>${java-version}</source>
-				<target>${java-version}</target>
+				<release>8</release>
 				<verbose>true</verbose>
 			</configuration>
 		</plugin>
@@ -69,7 +69,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${project.parent.version}</version>
 				<configuration>
 					<excludes>
 						<exclude>
