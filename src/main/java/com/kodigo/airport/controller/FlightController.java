@@ -7,14 +7,9 @@ import com.kodigo.airport.responses.ResponseApi;
 import com.kodigo.airport.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.SimpleTimeZone;
+
 
 @RestController
 @RequestMapping("/flights")
@@ -24,7 +19,7 @@ public class FlightController {
     private FlightService flightService;
 
     @GetMapping()
-    public ResponseApi<List<IItemFlight>> getAllFlights() throws ParseException {
+    public ResponseApi<List<IItemFlight>> getAllFlights(){
         boolean success;
         String message;
         List<IItemFlight> itemFlightList = new ArrayList<>();
