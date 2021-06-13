@@ -9,22 +9,27 @@ public class IItemFlight implements IItem {
     Integer idFlight;
     String model;
 
-    String airline;
     String idAirline;
+    String airline;
 
-    String departureCity;
     String idDepartureCity;
+    String departureCity;
 
-    String departureCountry;
     String idDepartureCountry;
+    String departureCountry;
 
-    String destinationCity;
     String idDestinationCity;
+    String destinationCity;
 
-    String arrivalCountry;
     String idArrivalCountry;
+    String arrivalCountry;
+
+    String departureDate;
+    String departureTime;
+
+    String arrivalDate;
+    String arrivalTime;
 
     String status;
-    String departureTime;
-    String arrivalTime;
+
 }
