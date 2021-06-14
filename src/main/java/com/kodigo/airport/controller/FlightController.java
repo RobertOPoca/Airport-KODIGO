@@ -64,14 +64,14 @@ public class FlightController {
                 itemFlight.setIdDepartureCountry(flight.getDepartureCity().getCountry().getIdCountry().toString());//idCountry
                 itemFlight.setDepartureCountry(flight.getDepartureCity().getCountry().getCountryName());//DepartureCountry
                 itemFlight.setDepartureDate(new MyFormatDate("yyyy-mm-dd").splitDate(flight.getDepartureTime())); //date
-                itemFlight.setDepartureTime(new MyFormatDate("hh:mm:ss").splitDate(flight.getDepartureTime())); //time
+                itemFlight.setDepartureTime(new MyFormatDate("hh:mm:ss").splitTime(flight.getDepartureTime())); //time
 
                 itemFlight.setIdDestinationCity(flight.getArrivalCity().getIdCity().toString());//idCity
                 itemFlight.setDestinationCity(flight.getArrivalCity().getCityName());//ArrivalCity
                 itemFlight.setIdArrivalCountry(flight.getArrivalCity().getCountry().getIdCountry().toString());//idCountry
                 itemFlight.setArrivalCountry(flight.getArrivalCity().getCountry().getCountryName());//ArrivalCountry
                 itemFlight.setArrivalDate(new MyFormatDate("yyyy-mm-dd").splitDate(flight.getArrivalTime()));//date
-                itemFlight.setArrivalTime(new MyFormatDate("hh:mm:ss").splitDate(flight.getArrivalTime()));//time
+                itemFlight.setArrivalTime(new MyFormatDate("hh:mm:ss").splitTime(flight.getArrivalTime()));//time
 
                 itemFlight.setStatus(flight.getStatus());
                 itemFlightList.add(itemFlight);
