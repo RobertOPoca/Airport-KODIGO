@@ -16,7 +16,7 @@ public class FileManagementService {
     @Autowired
     private ExcelReportByDate excelReportByDate;
 
-    public String readFile(){
+    public boolean readFile(){
         return this.excelBatch.read();
     }
 

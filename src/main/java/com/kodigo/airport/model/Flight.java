@@ -20,30 +20,16 @@ public class Flight {
     @Column(name = "id_flight")
     private Integer idFlight;
 
-    //@Column(name = "model", nullable = false, length = 50)
-    //private Airplane model;
-
-    //@Column(name = "id_airline", nullable = false)
-    //private Airline idAirline;
-
-    //@Column(name = "id_departure_city", nullable = false)
-    //private City idDepartureCity;
-
-    //@Column(name = "id_destination_city", nullable = false)
-    //private City idArrivalCity;
-
     @Column(name="status", columnDefinition="enum('ONTIME','DELAYED','CANCELLED'")
     public String status;
 
     @Column(name = "departure_time")
-    //@Temporal(TemporalType.DATE)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date departureTime;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private String departureTime;
 
     @Column(name = "arrival_time")
-    //@Temporal(TemporalType.DATE)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date arrivalTime;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private String arrivalTime;
 
 
     @ManyToOne

@@ -3,10 +3,12 @@ package com.kodigo.airport.service;
 import com.kodigo.airport.model.Incident;
 import com.kodigo.airport.repository.IIncidentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class IncidentService implements IIncidentService{
 
     @Autowired
@@ -23,8 +25,7 @@ public class IncidentService implements IIncidentService{
         incidentTMP.setDescription(incident.getDescription());
         incidentTMP.setDateTime(incident.getDateTime());
         incidentTMP.setFlight(incident.getFlight());
-        incidentTMP.setIdFlight(incident.getIdFlight());
-        return null;
+        return incidentRepo.save(incidentTMP);
     }
 
     @Override

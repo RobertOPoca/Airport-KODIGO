@@ -7,10 +7,13 @@ import com.kodigo.airport.service.IncidentService;
 import com.kodigo.airport.responses.ResponseApi;
 import com.kodigo.airport.model.Incident;
 import com.kodigo.airport.model.Flight;
+import com.kodigo.airport.utils.MyFormatDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +44,9 @@ public class IncidentController {
 
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setDescription(incident.getDescription());
-                itemIncident.setFlight(incident.getIdFlight().getIdFlight().toString());
-                itemIncident.setIdFlight(incident.getFlight().toString());
-                itemIncident.setDate(String.valueOf(incident.getDateTime()));
-                itemIncident.setTime(String.valueOf(incident.getDateTime().getTime()));
+                itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
                 itemIncidentList.add(itemIncident);
             }
         }
@@ -60,19 +62,18 @@ public class IncidentController {
         try{
 
             Flight flight = flightService.findById(incidentDTO.getIdFlight());
-            incident.setIdFlight(flight);
-            incident.setFlight(flight.getIdFlight());
-            incident.setDateTime(new Date());
+            incident.setFlight(flight);
 
+            incident.setDateTime(incidentDTO.getDateTime());
+            incident.setDescription(incidentDTO.getDescription());
             incident = incidentService.create(incident);
 
             if(incident!=null){
                 itemIncident.setIdIncident(incident.getIdIncident());
-                itemIncident.setFlight(incident.getIdFlight().getIdFlight().toString());
+                itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
                 itemIncident.setDescription(incident.getDescription());
-                itemIncident.setFlight(incident.getIdFlight().getIdFlight().toString());
-                itemIncident.setDate(String.valueOf(incident.getDateTime()));
-                itemIncident.setTime(String.valueOf(incident.getDateTime().getTime()));
+                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
 
                 success = true;
                 message = "Incident was create successfully";
@@ -94,20 +95,19 @@ public class IncidentController {
         try{
 
             Flight flight = flightService.findById(incidentDTO.getIdFlight());
-            incident.setIdFlight(flight);
-            incident.setFlight(flight.getIdFlight());
-            incident.setDateTime(new Date());
+            incident.setFlight(flight);
+            incident.setDateTime(incidentDTO.getDateTime());
             incident.setIdIncident(incidentDTO.getIdIncident());
+            incident.setDescription(incidentDTO.getDescription());
 
             incident = incidentService.update(incident);
 
             if(incident!=null){
                 itemIncident.setIdIncident(incident.getIdIncident());
-                itemIncident.setFlight(incident.getIdFlight().getIdFlight().toString());
                 itemIncident.setDescription(incident.getDescription());
-                itemIncident.setFlight(incident.getIdFlight().getIdFlight().toString());
-                itemIncident.setDate(String.valueOf(incident.getDateTime()));
-                itemIncident.setTime(String.valueOf(incident.getDateTime().getTime()));
+                itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
 
                 success = true;
                 message = "Incident was update successfully";
@@ -134,10 +134,9 @@ public class IncidentController {
             message = "Incident found";
             itemIncident.setIdIncident(incident.getIdIncident());
             itemIncident.setDescription(incident.getDescription());
-            itemIncident.setFlight(incident.getIdFlight().getIdFlight().toString());
-            itemIncident.setIdFlight(incident.getFlight().toString());
-            itemIncident.setDate(String.valueOf(incident.getDateTime()));
-            itemIncident.setTime(String.valueOf(incident.getDateTime().getTime()));
+            itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+            itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
+            itemIncident.setTime(new MyFormatDate("hh-mm-ss").splitTime(incident.getDateTime()));
         }
         return new ResponseApi<>(success, message, itemIncident);
     }

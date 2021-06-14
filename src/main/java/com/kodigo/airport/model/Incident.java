@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 
 @Setter
@@ -19,17 +19,14 @@ public class Incident {
     @Column(name = "id_incident")
     private Integer idIncident;
 
-    @Column(name = "flight")
-    private Integer flight;
-
     @Column(name = "description")
     private String description;
 
     @Column(name = "date_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateTime;
+    //@Temporal(TemporalType.TIMESTAMP)
+    private String dateTime;
 
     @ManyToOne
     @JoinColumn(name="id_flight")
-    private Flight idFlight;
+    private Flight flight;
 }

@@ -12,13 +12,17 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
+@Service
 public class ExcelBatch implements IFileRead{
     @Autowired
     private FlightService flightService;
@@ -32,16 +36,16 @@ public class ExcelBatch implements IFileRead{
     @Autowired
     private AirlineService airlineService;
 
-    public String read() {
-        Flight flight;
-        City cityDeparture;
-        City cityArrival;
-        Airline airline;
-        Airplane airplane;
-        String path = "./batch.xlsx";
-        String message = "";
+    public boolean read() {
+        boolean success = false;
 
         try {
+            Flight flight;
+            City cityDeparture;
+            City cityArrival;
+            Airline airline;
+            Airplane airplane;
+            String path = "./batch2.xlsx";
             File file = new File(path);
             XSSFWorkbook excel;
             XSSFSheet sheet;
@@ -51,7 +55,6 @@ public class ExcelBatch implements IFileRead{
                 excel = new XSSFWorkbook();
                 sheet = excel.createSheet("sheet 1");
                 Row row = sheet.createRow(0);
-                row.createCell(0).setCellValue("Number flight");
                 row.createCell(1).setCellValue("Airline");
                 row.createCell(2).setCellValue("Airplane model");
                 row.createCell(3).setCellValue("Departure city");
@@ -66,40 +69,37 @@ public class ExcelBatch implements IFileRead{
             sheet = excel.getSheetAt(0);
             int numRows = sheet.getLastRowNum();
 
-            for(int i = 0; i <= numRows; i++){
+            for(int i = 1; i <= numRows; i++){
                 if(sheet.getRow(i) != null){
 
                     Row row = sheet.getRow(i);
                     flight = new Flight();
-                    flight.setIdFlight(Integer.parseInt(row.getCell(0).toString()));
 
-                    airline= this.airlineService.findById(Integer.parseInt(row.getCell(1).toString()));
+                    airline= this.airlineService.findById((int) Math.round(row.getCell(1).getNumericCellValue()));
                     flight.setAirline(airline);
 
                     airplane = this.airplaneService.findById(row.getCell(2).toString());
                     flight.setAirplane(airplane);
 
-                    cityDeparture = this.cityService.findById(Integer.parseInt(row.getCell(3).toString()));
+                    cityDeparture = this.cityService.findById((int) Math.round(row.getCell(3).getNumericCellValue()));
                     flight.setDepartureCity(cityDeparture);
 
-                    cityArrival = this.cityService.findById(Integer.parseInt(row.getCell(4).toString()));
+                    cityArrival = this.cityService.findById((int) Math.round(row.getCell(4).getNumericCellValue()));
                     flight.setArrivalCity(cityArrival);
 
-                    flight.setDepartureTime(Date.valueOf(row.getCell(5).toString()));
-                    flight.setArrivalTime(Date.valueOf(row.getCell(6).toString()));
+                    flight.setDepartureTime(new SimpleDateFormat("yyyy-MM-dd HH-mm:ss").format(row.getCell(5).getDateCellValue()));
+                    flight.setArrivalTime(new SimpleDateFormat("yyyy-MM-dd HH-mm:ss").format(row.getCell(6).getDateCellValue()));
                     flight.setStatus("ONTIME");
-                    //flight.setDepartureTime(new java.util.Date());
-                    //flight.setArrivalTime(new java.util.Date());
 
                     this.flightService.create(flight);
-                    message = "flights was created successfully";;
                 }
             }
+            success = true;
 
         }catch (IOException e) {
-            message = "An error occurred: "+e.getMessage();
+            System.out.println("An error occurred: "+e.getMessage());
         }
-        return message;
+        return success;
     }
 }
 

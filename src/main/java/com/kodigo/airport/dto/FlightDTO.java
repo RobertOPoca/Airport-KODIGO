@@ -14,6 +14,6 @@ public class FlightDTO {
     private Integer idDepartureCity;
     private Integer idArrivalCity;
     private String status;
-    private Date departureTime;
-    private Date arrivalTime;
+    private String departureTime;
+    private String arrivalTime;
 }

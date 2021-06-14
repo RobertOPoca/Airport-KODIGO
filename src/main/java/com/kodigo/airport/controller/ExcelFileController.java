@@ -13,7 +13,8 @@ public class ExcelFileController {
 
     @PostMapping
     public ResponseApi read(){
-        String message = fileManagement.readFile();
-        return new ResponseApi(true, message);
+        boolean success = fileManagement.readFile();
+        String message = success? "Error" : "Flights was created successfully";
+        return new ResponseApi(success, message);
     }
 }
