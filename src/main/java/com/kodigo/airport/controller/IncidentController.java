@@ -40,7 +40,7 @@ public class IncidentController {
             success = true;
             message = "Incidents found";
             for(Incident incident: incidentList){
-                var itemIncident = new IItemIncident();
+                IItemIncident itemIncident = new IItemIncident();
 
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setDescription(incident.getDescription());
