@@ -32,7 +32,7 @@ public class AirplaneController {
             success = true;
             message = "Airlines found";
             for(Airplane airplane : airplaneList){
-                var itemAirplane = new IItemAirplane();
+                IItemAirplane itemAirplane = new IItemAirplane();
                 itemAirplane.setModel(airplane.getModel());
                 itemAirplane.setReach(airplane.getReach());
                 itemAirplaneList.add(itemAirplane);

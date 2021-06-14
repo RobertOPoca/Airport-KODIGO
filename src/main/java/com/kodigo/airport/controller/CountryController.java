@@ -34,7 +34,7 @@ public class CountryController {
             success = true;
             message = "Countries found";
             for(Country country : countryList){
-                var itemCountry = new IItemCountry();
+                IItemCountry itemCountry = new IItemCountry();
                 itemCountry.setIdCountry(country.getIdCountry());
                 itemCountry.setCountryName(country.getCountryName());
                 itemCountryList.add(itemCountry);

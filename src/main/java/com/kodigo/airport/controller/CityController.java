@@ -30,7 +30,7 @@ public class CityController {
             success = true;
             message = "Cities found";
             for(City city : cityList){
-                var itemCity = new IItemCity();
+                IItemCity itemCity = new IItemCity();
                 itemCity.setIdCity(city.getIdCity());
                 itemCity.setCityName(city.getCityName());
                 itemCityList.add(itemCity);
