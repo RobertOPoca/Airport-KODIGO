@@ -33,6 +33,7 @@ public class CityController {
                 IItemCity itemCity = new IItemCity();
                 itemCity.setIdCity(city.getIdCity());
                 itemCity.setCityName(city.getCityName());
+                itemCity.setIdCountry(city.getCountry().getIdCountry());
                 itemCityList.add(itemCity);
             }
         }
@@ -54,6 +55,7 @@ public class CityController {
 
             itemCity.setIdCity(city.getIdCity());
             itemCity.setCityName(city.getCityName());
+            itemCity.setIdCountry(city.getCountry().getIdCountry());
         }
         return new ResponseApi<>(success, message, itemCity);
 

@@ -8,4 +8,5 @@ import lombok.Setter;
 public class IItemCity implements IItem{
     Integer idCity;
     String cityName;
+    Integer idCountry;
 }
