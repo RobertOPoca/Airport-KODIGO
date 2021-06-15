@@ -64,7 +64,7 @@ public class AirplaneController {
     @PutMapping
     public ResponseApi<IItemAirplane> update(@RequestBody AirplaneDTO airplaneDTO){
         boolean success = false;
-        String message = "";
+        String message;
         Airplane airplane = new Airplane();
         IItemAirplane itemAirplane = new IItemAirplane();
         try{
@@ -77,7 +77,6 @@ public class AirplaneController {
                 success = true;
                 message = "Airplane was updated successfully";
             }else {
-                success = false;
                 message = "Error";
             }
         }catch (Exception ex){
