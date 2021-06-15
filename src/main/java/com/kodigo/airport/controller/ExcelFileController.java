@@ -1,6 +1,5 @@
 package com.kodigo.airport.controller;
 
-import com.kodigo.airport.dto.BodyReportDTO;
 import com.kodigo.airport.service.FileManagementService;
 import com.kodigo.airport.responses.ResponseApi;
 import com.kodigo.airport.service.MailService;
@@ -24,11 +23,10 @@ public class ExcelFileController {
     }
 
     @PostMapping
-    public ResponseApi sendExcelReportByDate(@RequestBody BodyReportDTO bodyReportDTO){
+    public ResponseApi sendExcelReportByDate(@RequestBody String date){
         boolean success;
-        success = fileManagement.excelReportByDate(bodyReportDTO);
+        success = fileManagement.excelReportByDate(date, "Cold");
         String message = "File error";
-
         if(success){
             success = mailService.sendMail();
             message = success? "Mail sent successfully" : "Error";
@@ -37,11 +35,10 @@ public class ExcelFileController {
     }
 
     @PutMapping
-    public ResponseApi sendExcelReportById(@RequestBody BodyReportDTO bodyReportDTO){
+    public ResponseApi sendExcelReportById(@RequestBody int id){
         boolean success;
-        success = fileManagement.excelReportById(bodyReportDTO);
+        success = fileManagement.excelReportById(id, "Cloudy");
         String message = "File error";
-
         if(success){
             success = mailService.sendMail();
             message = success? "Mail sent successfully" : "Error";
