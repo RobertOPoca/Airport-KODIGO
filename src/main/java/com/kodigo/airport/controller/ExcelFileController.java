@@ -31,7 +31,7 @@ public class ExcelFileController {
         return new ResponseApi<>(success, message);
     }
 
-    @PostMapping("date")
+    @PostMapping()
     public ResponseApi<String> sendExcelReportByDate(@RequestBody String date){
         boolean success;
         ApiService apiService = new ApiService(new ApiWeather());
