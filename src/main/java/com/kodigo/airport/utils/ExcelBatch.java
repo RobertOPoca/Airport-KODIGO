@@ -33,25 +33,13 @@ public class ExcelBatch implements IFileRead{
 
     @Autowired
     private AirlineService airlineService;
-
-    public boolean read() {
-        boolean success = false;
-
-        try {
-            Flight flight;
-            City cityDeparture;
-            City cityArrival;
-            Airline airline;
-            Airplane airplane;
-            String path = "./batch2.xlsx";
-            File file = new File(path);
-            XSSFWorkbook excel;
-            XSSFSheet sheet;
-
-            if(!file.exists()){
-
-                excel = new XSSFWorkbook();
-                sheet = excel.createSheet("sheet 1");
+    private void createHead(){
+        String path = "./batch2.xlsx";
+        File file = new File(path);
+        if(!file.exists()){
+            try{
+                XSSFWorkbook excel = new XSSFWorkbook();
+                XSSFSheet sheet = excel.createSheet("sheet 1");
                 Row row = sheet.createRow(0);
                 row.createCell(1).setCellValue("Airline");
                 row.createCell(2).setCellValue("Airplane model");
@@ -60,11 +48,27 @@ public class ExcelBatch implements IFileRead{
                 row.createCell(5).setCellValue("Departure date and time");
                 row.createCell(6).setCellValue("Arrival date and time");
                 excel.write(new FileOutputStream(path));
-
+                excel.close();
+            }catch(IOException e){
+                e.printStackTrace();
             }
+        }
+    }
 
-            excel = new XSSFWorkbook(new FileInputStream(file));
-            sheet = excel.getSheetAt(0);
+    public boolean read() {
+        boolean success = false;
+        Flight flight;
+        City cityDeparture;
+        City cityArrival;
+        Airline airline;
+        Airplane airplane;
+        String path = "./batch2.xlsx";
+        createHead();
+
+        try {
+            FileInputStream file = new FileInputStream(path);
+            XSSFWorkbook excel = new XSSFWorkbook(file);
+            XSSFSheet sheet = excel.getSheetAt(0);
             int numRows = sheet.getLastRowNum();
 
             for(int i = 1; i <= numRows; i++){
@@ -92,10 +96,11 @@ public class ExcelBatch implements IFileRead{
                     this.flightService.create(flight);
                 }
             }
+            excel.close();
             success = true;
 
         }catch (IOException e) {
-            System.out.println("An error occurred: "+e.getMessage());
+            e.printStackTrace();
         }
         return success;
     }

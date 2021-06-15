@@ -16,14 +16,14 @@ public class ExcelFileController {
     private MailService mailService;
 
     @GetMapping
-    public ResponseApi read(){
+    public ResponseApi<String> read(){
         boolean success = fileManagement.readFile();
         String message = success? "Flights was created successfully": "Error" ;
-        return new ResponseApi(success, message);
+        return new ResponseApi<>(success, message);
     }
 
     @PostMapping
-    public ResponseApi sendExcelReportByDate(@RequestBody String date){
+    public ResponseApi<String> sendExcelReportByDate(@RequestBody String date){
         boolean success;
         success = fileManagement.excelReportByDate(date, "Cold");
         String message = "File error";
@@ -31,11 +31,11 @@ public class ExcelFileController {
             success = mailService.sendMail();
             message = success? "Mail sent successfully" : "Mail Error";
         }
-        return new ResponseApi(success, message);
+        return new ResponseApi<>(success, message);
     }
 
     @PutMapping
-    public ResponseApi sendExcelReportById(@RequestBody int id){
+    public ResponseApi<String> sendExcelReportById(@RequestBody int id){
         boolean success;
         success = fileManagement.excelReportById(id, "Cloudy");
         String message = "File error";
@@ -43,6 +43,6 @@ public class ExcelFileController {
             success = mailService.sendMail();
             message = success? "Mail sent successfully" : "Mail Error";
         }
-        return new ResponseApi(success, message);
+        return new ResponseApi<>(success, message);
     }
 }

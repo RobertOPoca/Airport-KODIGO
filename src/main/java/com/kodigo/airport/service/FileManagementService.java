@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class FileManagementService {
     @Autowired
-    private ExcelBatch excelBatch = new ExcelBatch();
+    private ExcelBatch excelBatch;
     @Autowired
     private ExcelReport excelReport;
     @Autowired
@@ -30,7 +30,6 @@ public class FileManagementService {
     }
 
     public boolean excelReportByDate(String date, String weather ){
-
         String start = date+" 00:00:00";
         String end = date+" 23:59:59";
         List<Flight> flightList =  flightRepo.getDateBetweenDate(start, end);
@@ -40,7 +39,6 @@ public class FileManagementService {
     }
 
     public boolean excelReportById(int id, String weather){
-
         Optional<Flight> flightOptional = flightRepo.findById(id);
         Flight flight = flightOptional.orElse(null);
         List<Flight> flightList = new ArrayList<>();
