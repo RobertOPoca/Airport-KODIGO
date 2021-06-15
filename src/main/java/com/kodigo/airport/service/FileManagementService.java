@@ -34,7 +34,6 @@ public class FileManagementService {
 
         String start = bodyReport.getDateOrId()+" 00:00:00";
         String end = bodyReport.getDateOrId()+" 23:59:59";
-
         List<Flight> flightList =  flightRepo.getDateBetweenDate(start, end);
         List<Incident> incidentList = incidentRepo.findAll();
 
@@ -44,13 +43,10 @@ public class FileManagementService {
     public boolean excelReportById(BodyReportDTO bodyReport){
 
         int  id = Integer.parseInt(bodyReport.getDateOrId());
-
         Optional<Flight> flightOptional = flightRepo.findById(id);
         Flight flight = flightOptional.orElse(null);
-
         List<Flight> flightList = new ArrayList<>();
         flightList.add(flight);
-
         List<Incident> incidentList = incidentRepo.findAll();
 
         return this.excelReport.write(incidentList, flightList, bodyReport.getWeather());
