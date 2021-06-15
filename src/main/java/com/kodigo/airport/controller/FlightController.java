@@ -63,18 +63,14 @@ public class FlightController {
                 itemFlight.setDepartureCity(flight.getDepartureCity().getCityName());//DepartureCity
                 itemFlight.setIdDepartureCountry(flight.getDepartureCity().getCountry().getIdCountry().toString());//idCountry
                 itemFlight.setDepartureCountry(flight.getDepartureCity().getCountry().getCountryName());//DepartureCountry
-                itemFlight.setDepartureDate(new MyFormatDate().splitDate(flight.getDepartureTime())); //date
-                itemFlight.setDepartureTime(new MyFormatDate().splitTime(flight.getDepartureTime())); //time
-                itemFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime())); //date
+               itemFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime())); //date
                 itemFlight.setDepartureTime(MyFormatDate.splitTime(flight.getDepartureTime())); //time
 
                 itemFlight.setIdDestinationCity(flight.getArrivalCity().getIdCity().toString());//idCity
                 itemFlight.setDestinationCity(flight.getArrivalCity().getCityName());//ArrivalCity
                 itemFlight.setIdArrivalCountry(flight.getArrivalCity().getCountry().getIdCountry().toString());//idCountry
                 itemFlight.setArrivalCountry(flight.getArrivalCity().getCountry().getCountryName());//ArrivalCountry
-                itemFlight.setArrivalDate(new MyFormatDate().splitDate(flight.getArrivalTime()));//date
-                itemFlight.setArrivalTime(new MyFormatDate().splitTime(flight.getArrivalTime()));//time
-                itemFlight.setArrivalDate(MyFormatDate.splitDate(flight.getArrivalTime()));//date
+               itemFlight.setArrivalDate(MyFormatDate.splitDate(flight.getArrivalTime()));//date
                 itemFlight.setArrivalTime(MyFormatDate.splitTime(flight.getArrivalTime()));//time
 
                 itemFlight.setStatus(flight.getStatus());
@@ -88,14 +84,10 @@ public class FlightController {
     public ResponseApi<IItemFlight> create(@RequestBody FlightDTO flightDTO){
         boolean success;
         success = false;
-        boolean success = false;
         String message;
         message = "";
         Flight flight;
         flight = new Flight();
-        IItemFlight itemFlight;
-        itemFlight = new IItemFlight();
-        Flight flight = new Flight();
         IItemFlight itemFlight = new IItemFlight();
         try{
 
@@ -140,8 +132,6 @@ public class FlightController {
                 itemFlight.setDestinationCity(flight.getArrivalCity().getCityName());//ArrivalCity
                 itemFlight.setIdArrivalCountry(flight.getArrivalCity().getCountry().getIdCountry().toString());//idCountry
                 itemFlight.setArrivalCountry(flight.getArrivalCity().getCountry().getCountryName());//ArrivalCountry
-                itemFlight.setArrivalDate(new MyFormatDate().splitDate(flight.getArrivalTime()));//date
-                itemFlight.setArrivalTime(new MyFormatDate().splitTime(flight.getArrivalTime()));//time
                 itemFlight.setArrivalDate(MyFormatDate.splitDate(flight.getArrivalTime()));//date
                 itemFlight.setArrivalTime(MyFormatDate.splitTime(flight.getArrivalTime()));//time
 
@@ -205,8 +195,6 @@ public class FlightController {
                 itemFlight.setDepartureCity(flight.getDepartureCity().getCityName());//DepartureCity
                 itemFlight.setIdDepartureCountry(flight.getDepartureCity().getCountry().getIdCountry().toString());//idCountry
                 itemFlight.setDepartureCountry(flight.getDepartureCity().getCountry().getCountryName());//DepartureCountry
-                itemFlight.setDepartureDate(new MyFormatDate().splitDate(flight.getDepartureTime())); //date
-                itemFlight.setDepartureTime(new MyFormatDate().splitTime(flight.getDepartureTime())); //time
                 itemFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime())); //date
                 itemFlight.setDepartureTime(MyFormatDate.splitTime(flight.getDepartureTime())); //time
 
@@ -214,8 +202,6 @@ public class FlightController {
                 itemFlight.setDestinationCity(flight.getArrivalCity().getCityName());//ArrivalCity
                 itemFlight.setIdArrivalCountry(flight.getArrivalCity().getCountry().getIdCountry().toString());//idCountry
                 itemFlight.setArrivalCountry(flight.getArrivalCity().getCountry().getCountryName());//ArrivalCountry
-                itemFlight.setArrivalDate(new MyFormatDate().splitDate(flight.getArrivalTime()));//date
-                itemFlight.setArrivalTime(new MyFormatDate().splitTime(flight.getArrivalTime()));//time
                 itemFlight.setArrivalDate(MyFormatDate.splitDate(flight.getArrivalTime()));//date
                 itemFlight.setArrivalTime(MyFormatDate.splitTime(flight.getArrivalTime()));//time
 
@@ -238,9 +224,6 @@ public class FlightController {
         String message;
         IItemFlight itemFlight;
         itemFlight = new IItemFlight();
-        Flight flight;
-        flight = flightService.findById(idFlight);
-        IItemFlight itemFlight =  new IItemFlight();
         Flight flight = flightService.findById(idFlight);
 
         if(flight==null){
@@ -261,17 +244,13 @@ public class FlightController {
             itemFlight.setDepartureCity(flight.getDepartureCity().getCityName());//DepartureCity
             itemFlight.setIdDepartureCountry(flight.getDepartureCity().getCountry().getIdCountry().toString());//idCountry
             itemFlight.setDepartureCountry(flight.getDepartureCity().getCountry().getCountryName());//DepartureCountry
-            itemFlight.setDepartureDate(new MyFormatDate().splitDate(flight.getDepartureTime())); //date
-            itemFlight.setDepartureTime(new MyFormatDate().splitTime(flight.getDepartureTime())); //time
-            itemFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime())); //date
+            temFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime())); //date
             itemFlight.setDepartureTime(MyFormatDate.splitTime(flight.getDepartureTime())); //time
 
             itemFlight.setIdDestinationCity(flight.getArrivalCity().getIdCity().toString());//idCity
             itemFlight.setDestinationCity(flight.getArrivalCity().getCityName());//ArrivalCity
             itemFlight.setIdArrivalCountry(flight.getArrivalCity().getCountry().getIdCountry().toString());//idCountry
             itemFlight.setArrivalCountry(flight.getArrivalCity().getCountry().getCountryName());//ArrivalCountry
-            itemFlight.setArrivalDate(new MyFormatDate().splitDate(flight.getArrivalTime()));//date
-            itemFlight.setArrivalTime(new MyFormatDate().splitTime(flight.getArrivalTime()));//time
             itemFlight.setArrivalDate(MyFormatDate.splitDate(flight.getArrivalTime()));//date
             itemFlight.setArrivalTime(MyFormatDate.splitTime(flight.getArrivalTime()));//time
 
