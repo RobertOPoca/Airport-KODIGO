@@ -32,12 +32,8 @@ public class FlightController {
     @Autowired
     private AirlineService airlineService;
 
-    @Autowired
-    private MailService mailService;
-
     @GetMapping()
     public ResponseApi<List<IItemFlight>> getAllFlights(){
-        mailService.sendMail();
         boolean success;
         String message;
         List<IItemFlight> itemFlightList = new ArrayList<>();
