@@ -27,7 +27,7 @@ public class ExcelFileController {
     public ResponseApi sendExcelReportByDate(@RequestBody BodyReportDTO bodyReportDTO){
         boolean success;
         success = fileManagement.excelReportByDate(bodyReportDTO);
-        String message = "Error";
+        String message = "File error";
 
         if(success){
             success = mailService.sendMail();
@@ -40,7 +40,7 @@ public class ExcelFileController {
     public ResponseApi sendExcelReportById(@RequestBody BodyReportDTO bodyReportDTO){
         boolean success;
         success = fileManagement.excelReportById(bodyReportDTO);
-        String message = "Error";
+        String message = "File error";
 
         if(success){
             success = mailService.sendMail();

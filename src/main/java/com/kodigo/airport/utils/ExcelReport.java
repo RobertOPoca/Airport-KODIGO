@@ -11,10 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 @Service
@@ -30,7 +27,7 @@ public class ExcelReport implements IFileWrite{
             XSSFWorkbook excel;
             XSSFSheet sheet;
 
-            if(!file.exists()){
+            if (!file.exists()) {
                 excel = new XSSFWorkbook();
                 sheet = excel.createSheet("sheet 1");
                 Row row = sheet.createRow(0);
@@ -49,19 +46,24 @@ public class ExcelReport implements IFileWrite{
             }
             excel = new XSSFWorkbook(new FileInputStream(file));
             sheet = excel.getSheetAt(0);
+            int getNumRow = sheet.getLastRowNum();
+
+            for(int i = getNumRow; i > 0; i--){
+                sheet.removeRow(sheet.getRow(i));
+            }
             int numRow = 1;
             int numCol = 9;
 
-            for(Flight flight: flightList){
+            for (Flight flight : flightList) {
 
-                String departureCity = flight.getDepartureCity().getCityName()+", ";
+                String departureCity = flight.getDepartureCity().getCityName() + ", ";
                 departureCity += flight.getDepartureCity().getCountry().getCountryName();
 
-                String arrivalCity = flight.getArrivalCity().getCityName()+", ";
+                String arrivalCity = flight.getArrivalCity().getCityName() + ", ";
                 arrivalCity += flight.getArrivalCity().getCountry().getCountryName();
 
                 Row row = sheet.createRow(numRow);
-                row.createCell(0).setCellValue(flight.getIdFlight());
+                row.createCell(0).setCellValue(flight.getIdFlight().toString());
                 row.createCell(1).setCellValue(flight.getAirline().getAirlineName());
                 row.createCell(2).setCellValue(flight.getAirplane().getModel());
                 row.createCell(3).setCellValue(departureCity);
@@ -71,18 +73,20 @@ public class ExcelReport implements IFileWrite{
                 row.createCell(7).setCellValue(flight.getStatus());
                 row.createCell(8).setCellValue(weather);
 
-                for(Incident incident: incidentList){
+                for (Incident incident : incidentList) {
 
-                    if(flight.getIdFlight() == incident.getFlight().getIdFlight()){
+                    if (flight.getIdFlight() == incident.getFlight().getIdFlight()) {
 
-                        String incidentString = incident.getDescription()+". ";
+                        String incidentString = incident.getDescription() + ". ";
                         incidentString += incident.getDateTime();
                         row.createCell(numCol).setCellValue(incidentString);
                         numCol += 1;
                     }
                 }
-                numRow +=1;
+                numCol= 9;
+                numRow += 1;
             }
+            excel.write(new FileOutputStream(path));
             success = true;
 
         }catch(IOException e){
