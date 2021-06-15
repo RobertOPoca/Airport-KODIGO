@@ -41,8 +41,8 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setDescription(incident.getDescription());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
                 itemIncidentList.add(itemIncident);
             }
         }
@@ -68,8 +68,8 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
                 itemIncident.setDescription(incident.getDescription());
-                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
 
                 success = true;
                 message = "Incident was create successfully";
@@ -102,8 +102,8 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setDescription(incident.getDescription());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
 
                 success = true;
                 message = "Incident was update successfully";
@@ -131,8 +131,8 @@ public class IncidentController {
             itemIncident.setIdIncident(incident.getIdIncident());
             itemIncident.setDescription(incident.getDescription());
             itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-            itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-            itemIncident.setTime(new MyFormatDate("hh-mm-ss").splitTime(incident.getDateTime()));
+            itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+            itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
         }
         return new ResponseApi<>(success, message, itemIncident);
     }
@@ -140,5 +140,32 @@ public class IncidentController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Integer idIncident){
         incidentService.delete(idIncident);
+    }
+
+    @GetMapping("/flight/{id}")
+    public ResponseApi<List<IItemIncident>> getAllIncidentsByFlight(@PathVariable("id") Integer id){
+        boolean success;
+        String message;
+        List<IItemIncident> itemIncidentList = new ArrayList<>();
+        List<Incident> incidentList = incidentService.findAll();
+        if(incidentList.isEmpty()){
+            success = false;
+            message = "No incidents found";
+        }else{
+            success = true;
+            message = "Incidents found";
+            for(Incident incident: incidentList){
+                if(incident.getFlight().getIdFlight()==id){
+                    IItemIncident itemIncident = new IItemIncident();
+                    itemIncident.setIdIncident(incident.getIdIncident());
+                    itemIncident.setDescription(incident.getDescription());
+                    itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+                    itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                    itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
+                    itemIncidentList.add(itemIncident);
+                }
+            }
+        }
+        return new ResponseApi<>(success, message, itemIncidentList);
     }
 }

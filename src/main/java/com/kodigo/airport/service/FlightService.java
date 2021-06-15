@@ -49,4 +49,9 @@ public class FlightService implements  IFlightService{
     public void delete(Integer id) {
         flightRepo.deleteById(id);
     }
+
+    @Override
+    public List<Flight> getDateBetweenDate(String start, String end){
+        return flightRepo.getDateBetweenDate(start, end);
+    }
 }
