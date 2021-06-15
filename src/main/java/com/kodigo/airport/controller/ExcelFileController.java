@@ -25,16 +25,13 @@ public class ExcelFileController {
     private MailService mailService;
 
     @GetMapping
-    public ResponseApi read(){
     public ResponseApi<String> read(){
         boolean success = fileManagement.readFile();
         String message = success? "Flights was created successfully": "Error" ;
-        return new ResponseApi(success, message);
         return new ResponseApi<>(success, message);
     }
 
-    @PostMapping
-    public ResponseApi sendExcelReportByDate(@RequestBody String date){
+    @PostMapping("date")
     public ResponseApi<String> sendExcelReportByDate(@RequestBody String date){
         boolean success;
         ApiService apiService = new ApiService(new ApiWeather());
@@ -45,7 +42,6 @@ public class ExcelFileController {
             success = mailService.sendMail();
             message = success? "Mail sent successfully" : "Mail Error";
         }
-        return new ResponseApi(success, message);
         return new ResponseApi<>(success, message);
     }
 

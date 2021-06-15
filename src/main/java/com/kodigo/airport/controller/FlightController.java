@@ -123,8 +123,6 @@ public class FlightController {
                 itemFlight.setDepartureCity(flight.getDepartureCity().getCityName());//DepartureCity
                 itemFlight.setIdDepartureCountry(flight.getDepartureCity().getCountry().getIdCountry().toString());//idCountry
                 itemFlight.setDepartureCountry(flight.getDepartureCity().getCountry().getCountryName());//DepartureCountry
-                itemFlight.setDepartureDate(new MyFormatDate().splitDate(flight.getDepartureTime())); //date
-                itemFlight.setDepartureTime(new MyFormatDate().splitTime(flight.getDepartureTime())); //time
                 itemFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime())); //date
                 itemFlight.setDepartureTime(MyFormatDate.splitTime(flight.getDepartureTime())); //time
 
@@ -155,12 +153,10 @@ public class FlightController {
     public ResponseApi<IItemFlight>  update(@RequestBody FlightDTO flightDTO) {
         boolean success;
         success = false;
-        boolean success = false;
         String message;
         message = "";
         Flight flight;
         flight = new Flight();
-        Flight flight = new Flight();
         IItemFlight itemFlight = new IItemFlight();
         try{
 
@@ -244,7 +240,7 @@ public class FlightController {
             itemFlight.setDepartureCity(flight.getDepartureCity().getCityName());//DepartureCity
             itemFlight.setIdDepartureCountry(flight.getDepartureCity().getCountry().getIdCountry().toString());//idCountry
             itemFlight.setDepartureCountry(flight.getDepartureCity().getCountry().getCountryName());//DepartureCountry
-            temFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime())); //date
+            itemFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime())); //date
             itemFlight.setDepartureTime(MyFormatDate.splitTime(flight.getDepartureTime())); //time
 
             itemFlight.setIdDestinationCity(flight.getArrivalCity().getIdCity().toString());//idCity
