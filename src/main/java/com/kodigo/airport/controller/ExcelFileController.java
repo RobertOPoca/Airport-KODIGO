@@ -29,7 +29,7 @@ public class ExcelFileController {
         String message = "File error";
         if(success){
             success = mailService.sendMail();
-            message = success? "Mail sent successfully" : "Error";
+            message = success? "Mail sent successfully" : "Mail Error";
         }
         return new ResponseApi(success, message);
     }
@@ -41,7 +41,7 @@ public class ExcelFileController {
         String message = "File error";
         if(success){
             success = mailService.sendMail();
-            message = success? "Mail sent successfully" : "Error";
+            message = success? "Mail sent successfully" : "Mail Error";
         }
         return new ResponseApi(success, message);
     }
