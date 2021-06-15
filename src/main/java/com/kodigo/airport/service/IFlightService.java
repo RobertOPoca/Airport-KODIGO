@@ -15,4 +15,6 @@ public interface IFlightService {
     List<Flight> findAll();
 
     void delete(Integer id);
+
+    List<Flight> getDateBetweenDate(String start, String end);
 }
