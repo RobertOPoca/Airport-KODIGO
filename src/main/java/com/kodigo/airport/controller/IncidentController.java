@@ -160,8 +160,8 @@ public class IncidentController {
                     itemIncident.setIdIncident(incident.getIdIncident());
                     itemIncident.setDescription(incident.getDescription());
                     itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                    itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-                    itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
+                    itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                    itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
                     itemIncidentList.add(itemIncident);
                 }
             }
