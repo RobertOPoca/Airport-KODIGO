@@ -141,4 +141,31 @@ public class IncidentController {
     public void delete(@PathVariable("id") Integer idIncident){
         incidentService.delete(idIncident);
     }
+
+    @GetMapping("/flight/{id}")
+    public ResponseApi<List<IItemIncident>> getAllIncidentsByFlight(@PathVariable("id") Integer id){
+        boolean success;
+        String message;
+        List<IItemIncident> itemIncidentList = new ArrayList<>();
+        List<Incident> incidentList = incidentService.findAll();
+        if(incidentList.isEmpty()){
+            success = false;
+            message = "No incidents found";
+        }else{
+            success = true;
+            message = "Incidents found";
+            for(Incident incident: incidentList){
+                if(incident.getFlight().getIdFlight()==id){
+                    IItemIncident itemIncident = new IItemIncident();
+                    itemIncident.setIdIncident(incident.getIdIncident());
+                    itemIncident.setDescription(incident.getDescription());
+                    itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+                    itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                    itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
+                    itemIncidentList.add(itemIncident);
+                }
+            }
+        }
+        return new ResponseApi<>(success, message, itemIncidentList);
+    }
 }

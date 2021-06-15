@@ -1,5 +1,6 @@
 package com.kodigo.airport.utils;
 
+import com.kodigo.airport.model.Flight;
 import com.kodigo.airport.model.Incident;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,9 +17,10 @@ import java.util.Map;
 
 @Service
 public class ExcelReportByDate implements IFileWrite{
+
+
     @Override
-    public boolean write(List<Incident> incidents, String weather) {
-        boolean success = false;
+    public boolean write(List<Incident> incidents, List<Flight> flights, String weather) { boolean success = false;
         try{
             String path = ".xlsx";//incidents.get(0).toString();
             //path += ".xlsx";
