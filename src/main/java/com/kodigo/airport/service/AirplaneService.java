@@ -4,7 +4,6 @@ import com.kodigo.airport.model.Airplane;
 import com.kodigo.airport.repository.IAirplaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 

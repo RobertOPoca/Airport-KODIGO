@@ -47,7 +47,7 @@ public class AirlineController {
     @PostMapping
     public ResponseApi<IItemAirline> create(@RequestBody AirlineDTO airlineDTO){
         boolean success = false;
-        String message = "";
+        String message;
         Airline airline = new Airline();
         IItemAirline itemAirline = new IItemAirline();
         try{
@@ -59,7 +59,6 @@ public class AirlineController {
                 success = true;
                 message = "Airline was created successfully";
             }else {
-                success = false;
                 message = "Error";
             }
         }catch (Exception ex){
@@ -72,7 +71,7 @@ public class AirlineController {
     @PutMapping
     public ResponseApi<IItemAirline>  update(@RequestBody AirlineDTO airlineDTO) {
         boolean success = false;
-        String message = "";
+        String message;
         Airline airline = new Airline();
         IItemAirline itemAirline = new IItemAirline();
         try{
@@ -85,7 +84,6 @@ public class AirlineController {
                 success = true;
                 message = "Airline was updated successfully";
             }else {
-                success = false;
                 message = "Error";
             }
         }catch (Exception ex){

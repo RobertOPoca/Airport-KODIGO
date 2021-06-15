@@ -10,10 +10,6 @@ import com.kodigo.airport.model.Flight;
 import com.kodigo.airport.utils.MyFormatDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 

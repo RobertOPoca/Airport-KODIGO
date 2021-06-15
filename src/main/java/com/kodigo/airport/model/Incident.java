@@ -1,12 +1,8 @@
 package com.kodigo.airport.model;
 
-
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.sql.Timestamp;
-
 
 @Setter
 @Getter
@@ -23,7 +19,6 @@ public class Incident {
     private String description;
 
     @Column(name = "date_time")
-    //@Temporal(TemporalType.TIMESTAMP)
     private String dateTime;
 
     @ManyToOne
