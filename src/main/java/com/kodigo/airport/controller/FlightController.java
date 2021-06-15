@@ -175,6 +175,7 @@ public class FlightController {
             flight.setStatus(flightDTO.getStatus());
             flight.setDepartureTime(flightDTO.getDepartureTime());
             flight.setArrivalTime(flightDTO.getArrivalTime());
+            flight.setIdFlight(flightDTO.getIdFlight());
 
 
             flight = this.flightService.update(flight);
