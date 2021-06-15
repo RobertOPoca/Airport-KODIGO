@@ -1,10 +1,20 @@
 package com.kodigo.airport.controller;
 
+import com.kodigo.airport.service.ApiService;
 import com.kodigo.airport.service.FileManagementService;
 import com.kodigo.airport.responses.ResponseApi;
 import com.kodigo.airport.service.MailService;
+import com.kodigo.airport.utils.ApiConnection;
+import com.kodigo.airport.utils.ApiWeather;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/excel")
@@ -25,7 +35,9 @@ public class ExcelFileController {
     @PostMapping
     public ResponseApi sendExcelReportByDate(@RequestBody String date){
         boolean success;
-        success = fileManagement.excelReportByDate(date, "Cold");
+        ApiService apiService = new ApiService(new ApiWeather());
+        ResponseApi<String> responseApi = apiService.getWeather();
+        success = fileManagement.excelReportByDate(date, responseApi.getData());
         String message = "File error";
         if(success){
             success = mailService.sendMail();
@@ -34,10 +46,13 @@ public class ExcelFileController {
         return new ResponseApi(success, message);
     }
 
-    @PutMapping
-    public ResponseApi sendExcelReportById(@RequestBody int id){
+    @PutMapping("/{id}")
+    public ResponseApi sendExcelReportById(@PathVariable("id") Integer id){
         boolean success;
-        success = fileManagement.excelReportById(id, "Cloudy");
+
+        ApiService apiService = new ApiService(new ApiWeather());
+        ResponseApi<String> responseApi = apiService.getWeather();
+        success = fileManagement.excelReportById(id, responseApi.getData());
         String message = "File error";
         if(success){
             success = mailService.sendMail();

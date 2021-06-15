@@ -1,2 +1,4 @@
-package com.kodigo.airport.service;public interface IApiService {
+package com.kodigo.airport.service;
+
+public interface IApiService {
 }

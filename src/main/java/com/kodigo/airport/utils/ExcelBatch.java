@@ -37,6 +37,7 @@ public class ExcelBatch implements IFileRead{
     public boolean read() {
         boolean success = false;
 
+        XSSFWorkbook excel;
         try {
             Flight flight;
             City cityDeparture;
@@ -45,7 +46,6 @@ public class ExcelBatch implements IFileRead{
             Airplane airplane;
             String path = "./batch2.xlsx";
             File file = new File(path);
-            XSSFWorkbook excel;
             XSSFSheet sheet;
 
             if(!file.exists()){
