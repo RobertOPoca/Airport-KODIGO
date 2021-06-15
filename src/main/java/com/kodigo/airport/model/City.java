@@ -2,8 +2,6 @@ package com.kodigo.airport.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -27,7 +25,6 @@ public class City {
     @JoinColumn(name="id_country")
     private Country country;
 
-
     @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="departureCity")
     private List<Flight> flightDepartureList;
@@ -35,5 +32,4 @@ public class City {
     @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="id_destination_city")
     private List<Flight> flightDestinationList;
-
 }

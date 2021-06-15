@@ -1,16 +1,12 @@
 package com.kodigo.airport.controller;
 
-import com.kodigo.airport.dto.AirlineDTO;
 import com.kodigo.airport.dto.CountryDTO;
-import com.kodigo.airport.item.IItemAirline;
 import com.kodigo.airport.item.IItemCountry;
-import com.kodigo.airport.model.Airline;
 import com.kodigo.airport.model.Country;
 import com.kodigo.airport.responses.ResponseApi;
 import com.kodigo.airport.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +18,7 @@ public class CountryController {
     private CountryService countryService;
 
     @GetMapping()
-    public ResponseApi<List<IItemCountry>> getAllContries() {
+    public ResponseApi<List<IItemCountry>> getAllCountries() {
         boolean success;
         String message;
         List<IItemCountry> itemCountryList = new ArrayList<>();
@@ -65,7 +61,7 @@ public class CountryController {
     @PutMapping
     public ResponseApi<IItemCountry>  update(@RequestBody CountryDTO countryDTO) {
         boolean success = false;
-        String message = "";
+        String message;
         Country country = new Country();
         IItemCountry itemCountry = new IItemCountry();
         try{
@@ -78,7 +74,6 @@ public class CountryController {
                 success = true;
                 message = "Country was updated successfully";
             }else {
-                success = false;
                 message = "Error";
             }
         }catch (Exception ex){
@@ -87,5 +82,4 @@ public class CountryController {
         }
         return new ResponseApi<>(success, message, itemCountry);
     }
-
 }

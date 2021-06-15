@@ -10,10 +10,6 @@ import com.kodigo.airport.model.Flight;
 import com.kodigo.airport.utils.MyFormatDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,8 +41,8 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setDescription(incident.getDescription());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
                 itemIncidentList.add(itemIncident);
             }
         }
@@ -72,8 +68,8 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
                 itemIncident.setDescription(incident.getDescription());
-                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
 
                 success = true;
                 message = "Incident was create successfully";
@@ -106,8 +102,8 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setDescription(incident.getDescription());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-                itemIncident.setTime(new MyFormatDate("hh:mm:ss").splitTime(incident.getDateTime()));
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
 
                 success = true;
                 message = "Incident was update successfully";
@@ -135,8 +131,8 @@ public class IncidentController {
             itemIncident.setIdIncident(incident.getIdIncident());
             itemIncident.setDescription(incident.getDescription());
             itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-            itemIncident.setDate(new MyFormatDate("yyyy-mm-dd").splitDate(incident.getDateTime()));
-            itemIncident.setTime(new MyFormatDate("hh-mm-ss").splitTime(incident.getDateTime()));
+            itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+            itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
         }
         return new ResponseApi<>(success, message, itemIncident);
     }

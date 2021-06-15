@@ -1,7 +1,6 @@
 package com.kodigo.airport.service;
 
 import com.kodigo.airport.model.Country;
-
 import java.util.List;
 
 public interface ICountry {

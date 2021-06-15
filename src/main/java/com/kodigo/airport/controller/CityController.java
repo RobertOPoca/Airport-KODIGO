@@ -7,7 +7,6 @@ import com.kodigo.airport.responses.ResponseApi;
 import com.kodigo.airport.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,13 +57,12 @@ public class CityController {
             itemCity.setIdCountry(city.getCountry().getIdCountry());
         }
         return new ResponseApi<>(success, message, itemCity);
-
     }
 
     @PostMapping
     public ResponseApi<IItemCity> create(@RequestBody CityDTO cityDTO){
         boolean success = false;
-        String message = "";
+        String message;
         City city = new City();
         IItemCity itemCity = new IItemCity();
         try {
@@ -76,7 +74,6 @@ public class CityController {
                 success = true;
                 message = "City was created successfully";
             } else {
-                success = false;
                 message = "Error";
             }
         }catch (Exception ex){
@@ -89,7 +86,7 @@ public class CityController {
     @PutMapping
     public ResponseApi<IItemCity> update(@RequestBody CityDTO cityDTO){
         boolean success = false;
-        String message = "";
+        String message;
         City city = new City();
         IItemCity itemCity = new IItemCity();
         try {
@@ -100,9 +97,8 @@ public class CityController {
                 itemCity.setIdCity(city.getIdCity());
                 itemCity.setCityName(city.getCityName());
                 success = true;
-                message = "City was aupdated successfully";
+                message = "City was updated successfully";
             } else {
-                success = false;
                 message = "Error";
             }
         }catch (Exception ex){

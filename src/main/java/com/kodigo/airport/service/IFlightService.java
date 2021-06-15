@@ -1,7 +1,6 @@
 package com.kodigo.airport.service;
 
 import com.kodigo.airport.model.Flight;
-
 import java.util.List;
 
 public interface IFlightService {
@@ -15,4 +14,6 @@ public interface IFlightService {
     List<Flight> findAll();
 
     void delete(Integer id);
+
+    List<Flight> getDateBetweenDate(String start, String end);
 }

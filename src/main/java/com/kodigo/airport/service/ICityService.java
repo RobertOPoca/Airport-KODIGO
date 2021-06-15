@@ -2,7 +2,6 @@ package com.kodigo.airport.service;
 
 
 import com.kodigo.airport.model.City;
-
 import java.util.List;
 
 public interface ICityService {

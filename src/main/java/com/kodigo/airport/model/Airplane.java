@@ -18,7 +18,6 @@ public class Airplane {
     @Column(name = "reach")
     private float reach;
 
-
     @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="model")
     private List<CommercialAirplane> commercialAirplaneList;
