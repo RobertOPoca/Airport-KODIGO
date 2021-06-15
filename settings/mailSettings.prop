@@ -1,6 +1,11 @@
 mail.smtp.host=smtp-mail.outlook.com
 mail.smtp.port=587
+<<<<<<< HEAD
 mail.smtp.user=
 mail.smtp.password=
+=======
+mail.smtp.user=pocasangre870@gmail.com
+mail.smtp.password=D10535vld4
+>>>>>>> alpha
 mail.smtp.starttls.enable=true
 mail.smtp.auth=true

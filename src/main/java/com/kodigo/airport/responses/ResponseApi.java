@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Setter
 @Getter
-public class ResponseApi<T> implements Serializable {
+public class ResponseApi<T> implements Serializable, IResponse {
     private   Boolean success;
     private   String message;
     private   transient T data;
