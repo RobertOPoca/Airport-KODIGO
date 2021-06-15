@@ -3,8 +3,6 @@ package com.kodigo.airport.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
-
 @Setter
 @Getter
 public class FlightDTO {

@@ -2,7 +2,6 @@ package com.kodigo.airport.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 
 @Setter
@@ -28,5 +27,4 @@ public class CargoAirplane {
     @ManyToOne(optional = false)
     @JoinColumn(name="model", insertable = false, updatable = false, nullable = false)
     private Airplane airplane;
-
 }

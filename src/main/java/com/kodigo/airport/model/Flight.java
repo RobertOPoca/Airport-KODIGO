@@ -2,11 +2,7 @@ package com.kodigo.airport.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.util.Date;
-
-
 
 @Setter
 @Getter
@@ -24,13 +20,10 @@ public class Flight {
     public String status;
 
     @Column(name = "departure_time")
-    //@Temporal(TemporalType.TIMESTAMP)
     private String departureTime;
 
     @Column(name = "arrival_time")
-    //@Temporal(TemporalType.TIMESTAMP)
     private String arrivalTime;
-
 
     @ManyToOne
     @JoinColumn(name="id_airline")

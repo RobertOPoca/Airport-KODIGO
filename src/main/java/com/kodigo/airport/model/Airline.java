@@ -17,7 +17,6 @@ public class Airline {
     @Column(name = "id_airline")
     private Integer idAirline;
 
-
     @Column(name = "airline")
     private String airlineName;
 
