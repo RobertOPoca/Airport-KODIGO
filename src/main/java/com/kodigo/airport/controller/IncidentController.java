@@ -42,8 +42,13 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setDescription(incident.getDescription());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+<<<<<<< HEAD
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
+=======
                 itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
                 itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
+>>>>>>> alpha
                 itemIncidentList.add(itemIncident);
             }
         }
@@ -69,8 +74,13 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
                 itemIncident.setDescription(incident.getDescription());
+<<<<<<< HEAD
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
+=======
                 itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
                 itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
+>>>>>>> alpha
 
                 success = true;
                 message = "Incident was create successfully";
@@ -103,8 +113,13 @@ public class IncidentController {
                 itemIncident.setIdIncident(incident.getIdIncident());
                 itemIncident.setDescription(incident.getDescription());
                 itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+<<<<<<< HEAD
+                itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
+=======
                 itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
                 itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
+>>>>>>> alpha
 
                 success = true;
                 message = "Incident was update successfully";
@@ -132,8 +147,13 @@ public class IncidentController {
             itemIncident.setIdIncident(incident.getIdIncident());
             itemIncident.setDescription(incident.getDescription());
             itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+<<<<<<< HEAD
+            itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+            itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
+=======
             itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
             itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
+>>>>>>> alpha
         }
         return new ResponseApi<>(success, message, itemIncident);
     }
@@ -156,13 +176,22 @@ public class IncidentController {
             success = true;
             message = "Incidents found";
             for(Incident incident: incidentList){
+<<<<<<< HEAD
+                if(incident.getFlight().getIdFlight()==id){
+=======
                 if(incident.getFlight().getIdFlight().equals(id)){
+>>>>>>> alpha
                     IItemIncident itemIncident = new IItemIncident();
                     itemIncident.setIdIncident(incident.getIdIncident());
                     itemIncident.setDescription(incident.getDescription());
                     itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+<<<<<<< HEAD
+                    itemIncident.setDate(new MyFormatDate().splitDate(incident.getDateTime()));
+                    itemIncident.setTime(new MyFormatDate().splitTime(incident.getDateTime()));
+=======
                     itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
                     itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
+>>>>>>> alpha
                     itemIncidentList.add(itemIncident);
                 }
             }
