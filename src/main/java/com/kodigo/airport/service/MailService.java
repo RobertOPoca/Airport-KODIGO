@@ -15,7 +15,7 @@ public class MailService implements IMailService{
         String filePath = "";
         String fileName = "report.xlsx";
         //pocasangre870@gmail.com //jmletona@gmail.com //daniela18122012@gmail.com
-        String emailToSend = "pocasangre870@gmail.com";
+        String emailToSend = "jmletona@gmail.com";
         String emailTitle = "Airport Report";
         try {
             Mail m = new Mail("settings/mailSettings.prop");
