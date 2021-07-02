@@ -23,28 +23,31 @@ public class IncidentController {
     @Autowired
     private IncidentService incidentService;
 
+    private IItemIncident getIItemIncident(Incident incident){
+        IItemIncident itemIncident = new IItemIncident();
+        itemIncident.setIdIncident(incident.getIdIncident());
+        itemIncident.setDescription(incident.getDescription());
+        itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
+        itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
+        itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
+
+        return itemIncident;
+    }
+
+
     @GetMapping
     public ResponseApi<List<IItemIncident>> getAllIncidents(){
-        boolean success;
-        String message;
+
         List<IItemIncident> itemIncidentList = new ArrayList<>();
         List<Incident> incidentList = incidentService.findAll();
+        String message = "No incidents found";
+        boolean success = false;
 
-        if(incidentList.isEmpty()){
-            success = false;
-            message = "No incidents found";
-        }else{
+        if(!incidentList.isEmpty()){
             success = true;
             message = "Incidents found";
             for(Incident incident: incidentList){
-                IItemIncident itemIncident = new IItemIncident();
-
-                itemIncident.setIdIncident(incident.getIdIncident());
-                itemIncident.setDescription(incident.getDescription());
-                itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
-                itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
-                itemIncidentList.add(itemIncident);
+                itemIncidentList.add(getIItemIncident(incident));
             }
         }
         return new ResponseApi<>(success, message, itemIncidentList);
@@ -52,30 +55,24 @@ public class IncidentController {
 
     @PostMapping
     public ResponseApi<IItemIncident> create(@RequestBody IncidentDTO incidentDTO){
-        boolean success = false;
-        String message;
-        Incident incident = new Incident();
+
         IItemIncident itemIncident = new IItemIncident();
+        Incident incident = new Incident();
+        String message = "Error";
+        boolean success = false;
+
         try{
 
             Flight flight = flightService.findById(incidentDTO.getIdFlight());
             incident.setFlight(flight);
-
             incident.setDateTime(incidentDTO.getDateTime());
             incident.setDescription(incidentDTO.getDescription());
             incident = incidentService.create(incident);
 
             if(incident!=null){
-                itemIncident.setIdIncident(incident.getIdIncident());
-                itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                itemIncident.setDescription(incident.getDescription());
-                itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
-                itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
-
-                success = true;
+                itemIncident = getIItemIncident(incident);
                 message = "Incident was create successfully";
-            }else{
-                message = "Error";
+                success = true;
             }
         }catch(Exception e){
             message = e.getMessage();
@@ -85,31 +82,24 @@ public class IncidentController {
 
     @PutMapping
     public ResponseApi<IItemIncident> update(@RequestBody IncidentDTO incidentDTO){
-        boolean success = false;
-        String message;
-        Incident incident = new Incident();
-        IItemIncident itemIncident = new IItemIncident();
-        try{
 
+        IItemIncident itemIncident = new IItemIncident();
+        Incident incident = new Incident();
+        boolean success = false;
+        String message = "Error";
+
+        try{
             Flight flight = flightService.findById(incidentDTO.getIdFlight());
             incident.setFlight(flight);
             incident.setDateTime(incidentDTO.getDateTime());
             incident.setIdIncident(incidentDTO.getIdIncident());
             incident.setDescription(incidentDTO.getDescription());
-
             incident = incidentService.update(incident);
 
             if(incident!=null){
-                itemIncident.setIdIncident(incident.getIdIncident());
-                itemIncident.setDescription(incident.getDescription());
-                itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
-                itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
-
-                success = true;
+                itemIncident = getIItemIncident(incident);
                 message = "Incident was update successfully";
-            }else{
-                message = "Error";
+                success = true;
             }
         }catch(Exception e){
             message = e.getMessage();
@@ -119,21 +109,16 @@ public class IncidentController {
 
     @GetMapping("/{id}")
     public ResponseApi<IItemIncident> findById(@PathVariable("id") Integer idIncident){
-        boolean success;
-        String message;
-        IItemIncident itemIncident = new IItemIncident();
+
         Incident incident = incidentService.findById(idIncident);
-        if(incident==null){
-            success = false;
-            message = "No incident found";
-        }else{
+        IItemIncident itemIncident = new IItemIncident();
+        boolean success = false;
+        String message = "No incident found";
+
+        if(incident!=null){
             success = true;
             message = "Incident found";
-            itemIncident.setIdIncident(incident.getIdIncident());
-            itemIncident.setDescription(incident.getDescription());
-            itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-            itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
-            itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
+            itemIncident = getIItemIncident(incident);
         }
         return new ResponseApi<>(success, message, itemIncident);
     }
@@ -145,27 +130,20 @@ public class IncidentController {
 
     @GetMapping("/flight/{id}")
     public ResponseApi<List<IItemIncident>> getAllIncidentsByFlight(@PathVariable("id") Integer id){
-        boolean success;
-        String message;
+
         List<IItemIncident> itemIncidentList = new ArrayList<>();
         List<Incident> incidentList = incidentService.findAll();
-        if(incidentList.isEmpty()){
-            success = false;
-            message = "No incidents found";
-        }else{
-            success = true;
-            message = "Incidents found";
+        String message = "No incidents found";
+        boolean success = false;
+
+        if(!incidentList.isEmpty()){
             for(Incident incident: incidentList){
                 if(incident.getFlight().getIdFlight().equals(id)){
-                    IItemIncident itemIncident = new IItemIncident();
-                    itemIncident.setIdIncident(incident.getIdIncident());
-                    itemIncident.setDescription(incident.getDescription());
-                    itemIncident.setFlight(incident.getFlight().getIdFlight().toString());
-                    itemIncident.setDate(MyFormatDate.splitDate(incident.getDateTime()));
-                    itemIncident.setTime(MyFormatDate.splitTime(incident.getDateTime()));
-                    itemIncidentList.add(itemIncident);
+                    itemIncidentList.add(getIItemIncident(incident));
                 }
             }
+            message = "Incidents found";
+            success = true;
         }
         return new ResponseApi<>(success, message, itemIncidentList);
     }
