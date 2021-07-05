@@ -2,9 +2,6 @@ package com.kodigo.airport.controller;
 
 import com.kodigo.airport.dto.FlightDTO;
 import com.kodigo.airport.item.IItemFlight;
-import com.kodigo.airport.model.Airline;
-import com.kodigo.airport.model.Airplane;
-import com.kodigo.airport.model.City;
 import com.kodigo.airport.model.Flight;
 import com.kodigo.airport.responses.ResponseApi;
 import com.kodigo.airport.service.AirlineService;
@@ -32,21 +29,18 @@ public class FlightController {
 
     @GetMapping()
     public ResponseApi<List<IItemFlight>> getAllFlights(){
-        boolean success;
-        String message;
+        boolean success = false;
+        String message = "No Flights found";
         List<IItemFlight> itemFlightList = new ArrayList<>();
         List<Flight> flightList = flightService.findAll();
-        if(flightList.isEmpty()){
-            success = false;
-            message = "No flights found";
-        }else{
+        if(!flightList.isEmpty()){
             success = true;
-            message = "Flights found";
+            message = "flights found";
             itemFlightList = showAllFlights(flightList, itemFlightList);
         }
         return new ResponseApi<>(success, message, itemFlightList);
     }
-    public  List<IItemFlight> showAllFlights(@org.jetbrains.annotations.NotNull List<Flight> flightList, List<IItemFlight> itemFlightList ){
+    public  List<IItemFlight> showAllFlights(List<Flight> flightList, List<IItemFlight> itemFlightList ){
         for(Flight flight: flightList){
             IItemFlight itemFlight = new IItemFlight();
             itemFlight = showFlight(flight, itemFlight);
@@ -57,12 +51,9 @@ public class FlightController {
 
     @PostMapping
     public ResponseApi<IItemFlight> create(@RequestBody FlightDTO flightDTO){
-        boolean success;
-        success = false;
-        String message;
-        message = "Error";
-        Flight flight;
-        flight = new Flight();
+        boolean success = false;
+        String message = "Error";
+        Flight flight = new Flight();
         IItemFlight itemFlight = new IItemFlight();
         try{
             flight=createFlight(flight, flightDTO);
@@ -78,14 +69,10 @@ public class FlightController {
         return new ResponseApi<>(success, message, itemFlight);
     }
     public Flight createFlight(Flight flight, FlightDTO flightDTO){
-        Airplane airplane = airplaneService.findById(flightDTO.getModel());
-        flight.setAirplane(airplane);
-        Airline airline= airlineService.findById(flightDTO.getIdAirline());
-        flight.setAirline(airline);
-        City cityDeparture = cityService.findById(flightDTO.getIdDepartureCity());
-        flight.setDepartureCity(cityDeparture);
-        City cityArrival = cityService.findById(flightDTO.getIdArrivalCity());
-        flight.setArrivalCity(cityArrival);
+        flight.setAirplane(airplaneService.findById(flightDTO.getModel()));
+        flight.setAirline(airlineService.findById(flightDTO.getIdAirline()));
+        flight.setDepartureCity(cityService.findById(flightDTO.getIdDepartureCity()));
+        flight.setArrivalCity(cityService.findById(flightDTO.getIdArrivalCity()));
         flight.setStatus(flightDTO.getStatus());
         flight.setDepartureTime(flightDTO.getDepartureTime());
         flight.setArrivalTime(flightDTO.getArrivalTime());
@@ -95,12 +82,9 @@ public class FlightController {
 
     @PutMapping
     public ResponseApi<IItemFlight>  update(@RequestBody FlightDTO flightDTO) {
-        boolean success;
-        success = false;
-        String message;
-        message = "Error";
-        Flight flight;
-        flight = new Flight();
+        boolean success = false;
+        String message = "Error";
+        Flight flight = new Flight();
         IItemFlight itemFlight = new IItemFlight();
         try{
             flight = updateFlight(flight, flightDTO);
@@ -116,14 +100,10 @@ public class FlightController {
         return new ResponseApi<>(success, message, itemFlight);
     }
     public Flight updateFlight(Flight flight, FlightDTO flightDTO){
-        Airplane airplane = airplaneService.findById(flightDTO.getModel());
-        flight.setAirplane(airplane);
-        Airline airline= airlineService.findById(flightDTO.getIdAirline());
-        flight.setAirline(airline);
-        City cityDeparture = cityService.findById(flightDTO.getIdDepartureCity());
-        flight.setDepartureCity(cityDeparture);
-        City cityArrival = cityService.findById(flightDTO.getIdArrivalCity());
-        flight.setArrivalCity(cityArrival);
+        flight.setAirplane(airplaneService.findById(flightDTO.getModel()));
+        flight.setAirline(airlineService.findById(flightDTO.getIdAirline()));
+        flight.setDepartureCity(cityService.findById(flightDTO.getIdDepartureCity()));
+        flight.setArrivalCity(cityService.findById(flightDTO.getIdArrivalCity()));
         flight.setStatus(flightDTO.getStatus());
         flight.setDepartureTime(flightDTO.getDepartureTime());
         flight.setArrivalTime(flightDTO.getArrivalTime());
@@ -134,23 +114,17 @@ public class FlightController {
 
     @GetMapping("/{id}")
     public ResponseApi<IItemFlight> findById(@PathVariable("id") Integer idFlight){
-        boolean success;
-        String message;
-        IItemFlight itemFlight;
-        itemFlight = new IItemFlight();
+        boolean success = false;
+        String message = "No flight found";
+        IItemFlight itemFlight = new IItemFlight();
         Flight flight = flightService.findById(idFlight);
-
-        if(flight==null){
-            success = false;
-            message = "No flights found";
-        }else{
+        if(flight!=null){
             itemFlight = showFlight(flight, itemFlight);
             success = true;
-            message = "Flights found";
+            message = "Flight found";
         }
         return new ResponseApi<>(success, message, itemFlight);
     }
-
     public IItemFlight showFlight(Flight flight, IItemFlight itemFlight){
         itemFlight.setIdFlight(flight.getIdFlight());
         itemFlight.setModel(flight.getAirplane().getModel());
