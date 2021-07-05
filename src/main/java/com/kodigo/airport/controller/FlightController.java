@@ -67,7 +67,7 @@ public class FlightController {
         try{
             flight=createFlight(flight, flightDTO);
             if(flight!=null){
-                itemFlight = showCreateFlight(flight, itemFlight);
+                itemFlight = showFlight(flight, itemFlight);
                 success = true;
                 message = "Airline was created successfully";
             }
@@ -91,26 +91,6 @@ public class FlightController {
         flight.setArrivalTime(flightDTO.getArrivalTime());
         flight = this.flightService.create(flight);
         return flight;
-    }
-    public IItemFlight showCreateFlight(Flight flight, IItemFlight itemFlight){
-        itemFlight.setIdFlight(flight.getIdFlight());
-        itemFlight.setModel(flight.getAirplane().getModel());
-        itemFlight.setAirline(flight.getAirline().getAirlineName());
-        itemFlight.setIdAirline(flight.getAirline().getIdAirline().toString());
-        itemFlight.setIdDepartureCity(flight.getDepartureCity().getIdCity().toString());
-        itemFlight.setDepartureCity(flight.getDepartureCity().getCityName());
-        itemFlight.setIdDepartureCountry(flight.getDepartureCity().getCountry().getIdCountry().toString());
-        itemFlight.setDepartureCountry(flight.getDepartureCity().getCountry().getCountryName());
-        itemFlight.setDepartureDate(MyFormatDate.splitDate(flight.getDepartureTime()));
-        itemFlight.setDepartureTime(MyFormatDate.splitTime(flight.getDepartureTime()));
-        itemFlight.setIdDestinationCity(flight.getArrivalCity().getIdCity().toString());
-        itemFlight.setDestinationCity(flight.getArrivalCity().getCityName());
-        itemFlight.setIdArrivalCountry(flight.getArrivalCity().getCountry().getIdCountry().toString());
-        itemFlight.setArrivalCountry(flight.getArrivalCity().getCountry().getCountryName());
-        itemFlight.setArrivalDate(MyFormatDate.splitDate(flight.getArrivalTime()));
-        itemFlight.setArrivalTime(MyFormatDate.splitTime(flight.getArrivalTime()));
-        itemFlight.setStatus(flight.getStatus());
-        return itemFlight;
     }
 
     @PutMapping
