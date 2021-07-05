@@ -12,13 +12,12 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
+import java.io.*;
 import java.text.SimpleDateFormat;
 @Service
 public class ExcelBatch implements IFileRead{
+
     @Autowired
     private FlightService flightService;
     @Autowired
@@ -27,64 +26,67 @@ public class ExcelBatch implements IFileRead{
     private CityService cityService;
     @Autowired
     private AirlineService airlineService;
-    private void createHead(){
-        String path = "./batch2.xlsx";
-        File file = new File(path);
-        if(!file.exists()){
-            try{
-                XSSFWorkbook excel = new XSSFWorkbook();
-                XSSFSheet sheet = excel.createSheet("sheet 1");
-                Row row = sheet.createRow(0);
-                row.createCell(1).setCellValue("Airline");
-                row.createCell(2).setCellValue("Airplane model");
-                row.createCell(3).setCellValue("Departure city");
-                row.createCell(4).setCellValue("Arrival city");
-                row.createCell(5).setCellValue("Departure date and time");
-                row.createCell(6).setCellValue("Arrival date and time");
-                excel.write(new FileOutputStream(path));
-                excel.close();
-            }catch(IOException e){
-                e.printStackTrace();
+
+    private Airline fillAirline(int id){
+        return this.airlineService.findById(id);
+    }
+
+    private Airplane fillAirplane(String id){
+        return this.airplaneService.findById(id);
+    }
+
+    private City fillCity(int id){
+        return this.cityService.findById(id);
+    }
+
+    private Flight fillFlight(Row row){
+
+        Flight flight = new Flight();
+        flight.setAirline( fillAirline( (int) Math.round( row.getCell(1).getNumericCellValue() )));
+        flight.setAirplane(fillAirplane(row.getCell(2).toString()));
+        flight.setDepartureCity(fillCity((int) Math.round(row.getCell(3).getNumericCellValue())));
+        flight.setArrivalCity(fillCity((int) Math.round(row.getCell(4).getNumericCellValue())));
+        flight.setDepartureTime(new SimpleDateFormat("yyyy-MM-dd HH-mm:ss").format(row.getCell(5).getDateCellValue()));
+        flight.setArrivalTime(new SimpleDateFormat("yyyy-MM-dd HH-mm:ss").format(row.getCell(6).getDateCellValue()));
+        flight.setStatus("ONTIME");
+
+        return flight;
+    }
+
+    private void cellsToParameter(XSSFSheet sheet){
+        for(int i = 1; i <= sheet.getLastRowNum(); i++){
+            if(sheet.getRow(i) != null){
+                Row row = sheet.getRow(i);
+                this.flightService.create(fillFlight(row));
             }
         }
     }
-    public boolean read() {
-        boolean success = false;
-        Flight flight;
-        City cityDeparture;
-        City cityArrival;
-        Airline airline;
-        Airplane airplane;
-        String path = "./batch2.xlsx";
-        createHead();
-        try {
-            FileInputStream file = new FileInputStream(path);
-            XSSFWorkbook excel = new XSSFWorkbook(file);
+
+    private boolean saveInDataBase(String path){
+
+        try ( FileInputStream file = new FileInputStream(path);
+              XSSFWorkbook excel = new XSSFWorkbook(file) ){
+
             XSSFSheet sheet = excel.getSheetAt(0);
-            int numRows = sheet.getLastRowNum();
-            for(int i = 1; i <= numRows; i++){
-                if(sheet.getRow(i) != null){
-                    Row row = sheet.getRow(i);
-                    flight = new Flight();
-                    airline= this.airlineService.findById((int) Math.round(row.getCell(1).getNumericCellValue()));
-                    flight.setAirline(airline);
-                    airplane = this.airplaneService.findById(row.getCell(2).toString());
-                    flight.setAirplane(airplane);
-                    cityDeparture = this.cityService.findById((int) Math.round(row.getCell(3).getNumericCellValue()));
-                    flight.setDepartureCity(cityDeparture);
-                    cityArrival = this.cityService.findById((int) Math.round(row.getCell(4).getNumericCellValue()));
-                    flight.setArrivalCity(cityArrival);
-                    flight.setDepartureTime(new SimpleDateFormat("yyyy-MM-dd HH-mm:ss").format(row.getCell(5).getDateCellValue()));
-                    flight.setArrivalTime(new SimpleDateFormat("yyyy-MM-dd HH-mm:ss").format(row.getCell(6).getDateCellValue()));
-                    flight.setStatus("ONTIME");
-                    this.flightService.create(flight);
-                }
-            }
-            excel.close();
-            success = true;
-        }catch (IOException e) {
+            cellsToParameter(sheet);
+            return true;
+
+        } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-        return success;
+    }
+
+    @Override
+    public boolean read() {
+
+        String path = "./batch2.xlsx";
+        File file = new File(path);
+
+        if(file.exists()){
+            return saveInDataBase(path);
+        }else{
+            return false;
+        }
     }
 }
